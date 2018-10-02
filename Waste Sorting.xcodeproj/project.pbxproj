@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C66A83221633C4C00AEC87C /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C66A82D21633C4B00AEC87C /* Constants.m */; };
+		9C66A83321633C4C00AEC87C /* DefaultSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C66A82F21633C4B00AEC87C /* DefaultSessionManager.m */; };
+		9C66A83421633C4C00AEC87C /* ServerCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C66A83021633C4B00AEC87C /* ServerCommunication.m */; };
 		9C8082D72159B7520073EB4C /* hygiea-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C8082D62159B7520073EB4C /* hygiea-logo.png */; };
 		9CC742F5215752AB00132866 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC742F4215752AB00132866 /* AppDelegate.m */; };
 		9CC742F8215752AB00132866 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC742F7215752AB00132866 /* ViewController.m */; };
@@ -20,6 +23,12 @@
 /* Begin PBXFileReference section */
 		2777066EBD694D1A1568B4FB /* libPods-Waste Sorting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Waste Sorting.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FA99F4C51D124428BB7D9C7 /* Pods-Waste Sorting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waste Sorting.release.xcconfig"; path = "Pods/Target Support Files/Pods-Waste Sorting/Pods-Waste Sorting.release.xcconfig"; sourceTree = "<group>"; };
+		9C66A82C21633C4B00AEC87C /* ServerCommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerCommunication.h; sourceTree = "<group>"; };
+		9C66A82D21633C4B00AEC87C /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		9C66A82E21633C4B00AEC87C /* DefaultSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSessionManager.h; sourceTree = "<group>"; };
+		9C66A82F21633C4B00AEC87C /* DefaultSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSessionManager.m; sourceTree = "<group>"; };
+		9C66A83021633C4B00AEC87C /* ServerCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerCommunication.m; sourceTree = "<group>"; };
+		9C66A83121633C4C00AEC87C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		9C8082D62159B7520073EB4C /* hygiea-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hygiea-logo.png"; path = "Images/hygiea-logo.png"; sourceTree = "<group>"; };
 		9CA9208D71E1CBE2C0BBDA96 /* Pods-Waste Sorting.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waste Sorting.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Waste Sorting/Pods-Waste Sorting.debug.xcconfig"; sourceTree = "<group>"; };
 		9CC742F0215752AB00132866 /* Waste Sorting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Waste Sorting.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,11 +63,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		9C66A81A21612D2300AEC87C /* Server */ = {
+		9C66A83521633CE300AEC87C /* Constants */ = {
 			isa = PBXGroup;
 			children = (
+				9C66A83121633C4C00AEC87C /* Constants.h */,
+				9C66A82D21633C4B00AEC87C /* Constants.m */,
 			);
-			path = Server;
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		9C66A83621633D7700AEC87C /* Server */ = {
+			isa = PBXGroup;
+			children = (
+				9C66A82C21633C4B00AEC87C /* ServerCommunication.h */,
+				9C66A83021633C4B00AEC87C /* ServerCommunication.m */,
+				9C66A83721633D9000AEC87C /* Server Session */,
+			);
+			name = Server;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		9C66A83721633D9000AEC87C /* Server Session */ = {
+			isa = PBXGroup;
+			children = (
+				9C66A82E21633C4B00AEC87C /* DefaultSessionManager.h */,
+				9C66A82F21633C4B00AEC87C /* DefaultSessionManager.m */,
+			);
+			path = "Server Session";
 			sourceTree = "<group>";
 		};
 		9CC742E7215752AB00132866 = {
@@ -82,9 +113,10 @@
 		9CC742F2215752AB00132866 /* Waste Sorting */ = {
 			isa = PBXGroup;
 			children = (
+				9C66A83521633CE300AEC87C /* Constants */,
+				9C66A83621633D7700AEC87C /* Server */,
 				9CC742F3215752AB00132866 /* AppDelegate.h */,
 				9CC742F4215752AB00132866 /* AppDelegate.m */,
-				9C66A81A21612D2300AEC87C /* Server */,
 				9CC742F6215752AB00132866 /* ViewController.h */,
 				9CC742F7215752AB00132866 /* ViewController.m */,
 				9CC742F9215752AB00132866 /* Main.storyboard */,
@@ -273,6 +305,9 @@
 				9CC742F8215752AB00132866 /* ViewController.m in Sources */,
 				9CC74303215752AD00132866 /* main.m in Sources */,
 				9CC742F5215752AB00132866 /* AppDelegate.m in Sources */,
+				9C66A83421633C4C00AEC87C /* ServerCommunication.m in Sources */,
+				9C66A83221633C4C00AEC87C /* Constants.m in Sources */,
+				9C66A83321633C4C00AEC87C /* DefaultSessionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
