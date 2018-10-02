@@ -54,6 +54,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9C66A81A21612D2300AEC87C /* Server */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Server;
+			sourceTree = "<group>";
+		};
 		9CC742E7215752AB00132866 = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +84,7 @@
 			children = (
 				9CC742F3215752AB00132866 /* AppDelegate.h */,
 				9CC742F4215752AB00132866 /* AppDelegate.m */,
+				9C66A81A21612D2300AEC87C /* Server */,
 				9CC742F6215752AB00132866 /* ViewController.h */,
 				9CC742F7215752AB00132866 /* ViewController.m */,
 				9CC742F9215752AB00132866 /* Main.storyboard */,
@@ -143,6 +151,40 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				he,
+				ar,
+				el,
+				ja,
+				uk,
+				zh_CN,
+				nb,
+				es,
+				da,
+				it,
+				sk,
+				pt_PT,
+				ms,
+				sv,
+				cs,
+				ko,
+				hu,
+				tr,
+				pl,
+				zh_TW,
+				en_GB,
+				vi,
+				ru,
+				fr,
+				fi,
+				id,
+				nl,
+				th,
+				pt,
+				ro,
+				hr,
+				ca,
+				"zh-Hans",
 			);
 			mainGroup = 9CC742E7215752AB00132866;
 			productRefGroup = 9CC742F1215752AB00132866 /* Products */;
@@ -208,9 +250,13 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Waste Sorting/Pods-Waste Sorting-resources.sh",
+				$PODS_CONFIGURATION_BUILD_DIR/AWSLex/AWSLex.bundle,
+				$PODS_CONFIGURATION_BUILD_DIR/QBImagePickerController/QBImagePicker.bundle,
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -368,6 +414,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Waste\\ Sorting/Geolocation/Pods/GoogleMaps/Frameworks",
+					"$(PROJECT_DIR)/Waste\\ Sorting/Geolocation/Pods/GoogleMaps/GoogleMapsSDKDemos",
+				);
 				INFOPLIST_FILE = "Waste Sorting/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hygiea.wastesorting;
@@ -382,6 +433,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Waste\\ Sorting/Geolocation/Pods/GoogleMaps/Frameworks",
+					"$(PROJECT_DIR)/Waste\\ Sorting/Geolocation/Pods/GoogleMaps/GoogleMapsSDKDemos",
+				);
 				INFOPLIST_FILE = "Waste Sorting/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hygiea.wastesorting;
