@@ -6,18 +6,26 @@
 //  Copyright © 2018 Hygiea. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MainViewController.h"
 #import "QBImagePickerController.h"
+#import "ServerCommunication.h"
 
-@interface ViewController ()<QBImagePickerControllerDelegate>
+@interface MainViewController ()<QBImagePickerControllerDelegate>
 @property (strong, nonatomic) UIImage *image;
 @end
 
-@implementation ViewController
+@implementation MainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+}
+- (IBAction)uploadPhotoToServer:(id)sender {
+    
+    if(self.image){
+        [[ServerCommunication   alloc] uploadImage:self.image];
+    }
+        
 }
 
 
@@ -25,6 +33,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 
 - (IBAction)selectPhoto:(id)sender {
@@ -49,7 +59,7 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
     
     
-    __weak ViewController *weakSelf = self;
+    __weak MainViewController *weakSelf = self;
     [assets enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         PHAsset *asset=(PHAsset *)obj;
         PHImageRequestOptions *requestOptions = [[PHImageRequestOptions alloc] init];

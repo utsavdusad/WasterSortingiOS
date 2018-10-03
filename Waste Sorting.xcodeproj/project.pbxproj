@@ -12,7 +12,7 @@
 		9C66A83421633C4C00AEC87C /* ServerCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C66A83021633C4B00AEC87C /* ServerCommunication.m */; };
 		9C8082D72159B7520073EB4C /* hygiea-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C8082D62159B7520073EB4C /* hygiea-logo.png */; };
 		9CC742F5215752AB00132866 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC742F4215752AB00132866 /* AppDelegate.m */; };
-		9CC742F8215752AB00132866 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC742F7215752AB00132866 /* ViewController.m */; };
+		9CC742F8215752AB00132866 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC742F7215752AB00132866 /* MainViewController.m */; };
 		9CC742FB215752AB00132866 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC742F9215752AB00132866 /* Main.storyboard */; };
 		9CC742FD215752AD00132866 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CC742FC215752AD00132866 /* Assets.xcassets */; };
 		9CC74300215752AD00132866 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC742FE215752AD00132866 /* LaunchScreen.storyboard */; };
@@ -34,8 +34,8 @@
 		9CC742F0215752AB00132866 /* Waste Sorting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Waste Sorting.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CC742F3215752AB00132866 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9CC742F4215752AB00132866 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		9CC742F6215752AB00132866 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		9CC742F7215752AB00132866 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		9CC742F6215752AB00132866 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		9CC742F7215752AB00132866 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		9CC742FA215752AB00132866 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9CC742FC215752AD00132866 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CC742FF215752AD00132866 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -117,8 +117,8 @@
 				9C66A83621633D7700AEC87C /* Server */,
 				9CC742F3215752AB00132866 /* AppDelegate.h */,
 				9CC742F4215752AB00132866 /* AppDelegate.m */,
-				9CC742F6215752AB00132866 /* ViewController.h */,
-				9CC742F7215752AB00132866 /* ViewController.m */,
+				9CC742F6215752AB00132866 /* MainViewController.h */,
+				9CC742F7215752AB00132866 /* MainViewController.m */,
 				9CC742F9215752AB00132866 /* Main.storyboard */,
 				9CC742FC215752AD00132866 /* Assets.xcassets */,
 				9C8082D62159B7520073EB4C /* hygiea-logo.png */,
@@ -302,7 +302,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CC742F8215752AB00132866 /* ViewController.m in Sources */,
+				9CC742F8215752AB00132866 /* MainViewController.m in Sources */,
 				9CC74303215752AD00132866 /* main.m in Sources */,
 				9CC742F5215752AB00132866 /* AppDelegate.m in Sources */,
 				9C66A83421633C4C00AEC87C /* ServerCommunication.m in Sources */,
