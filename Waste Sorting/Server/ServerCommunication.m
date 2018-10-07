@@ -24,22 +24,5 @@
     [task resume];
 }
 
-// Test method to upload the image to server
--(void)testUploadImage:(UIImage *)image{
-    
-    NSMutableURLRequest *request;
-    AFHTTPRequestSerializer *reqSerializer = [AFJSONRequestSerializer serializer];
-    
-    // compressing the image with UIImageJPEGRepresentation
-    request = [reqSerializer requestWithMethod:@"POST" URLString:UPLOAD_PATH parameters:nil error:nil];
-    NSData* imageData = UIImageJPEGRepresentation(image, 1 /* =compression factor*/);
-    
-    NSURLSessionUploadTask *task = [[DefaultSessionManager manager] uploadTaskWithRequest:request fromData:imageData progress:nil completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        NSLog(@"Image uploaded to server successfully");
-    }];
-   
-    
-    [task resume];
-}
 
 @end

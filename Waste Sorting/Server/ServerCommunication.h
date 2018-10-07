@@ -7,5 +7,4 @@
 @interface ServerCommunication : NSObject
 
 -(void) uploadImage:(UIImage *)image;
-
 @end

@@ -9,6 +9,7 @@
 #import "MainViewController.h"
 #import "QBImagePickerController.h"
 #import "ServerCommunication.h"
+#import "CameraViewController.h"
 
 @interface MainViewController ()<QBImagePickerControllerDelegate>
 @property (strong, nonatomic) UIImage *image;
@@ -23,6 +24,7 @@
 - (IBAction)uploadPhotoToServer:(id)sender {
     
     if(self.image){
+        
         [[ServerCommunication   alloc] uploadImage:self.image];
     }
         
@@ -34,6 +36,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)showCamera:(id)sender {
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"CaptureImage"
+                                                             bundle: nil];
+    
+    //    [self.navigationController setNavigationBarHidden:YES];
+    //    [self.navigationController setToolbarHidden:YES animated:YES];
+    
+    CameraViewController *controller = (CameraViewController*)[mainStoryboard
+                                                               instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    
+    
+    //    controller.hidesBottomBarWhenPushed=YES;
+    
+    [self.navigationController showViewController:controller sender:nil];
+    
+}
 
 
 

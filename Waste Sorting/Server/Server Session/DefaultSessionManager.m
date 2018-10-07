@@ -22,7 +22,8 @@
     //  Session configuration to be set once in init
     NSURLSessionConfiguration *configuration=[NSURLSessionConfiguration defaultSessionConfiguration];
     [configuration setURLCache:[NSURLCache sharedURLCache]];
-    [configuration setRequestCachePolicy:NSURLRequestReturnCacheDataElseLoad];
+//    [configuration setRequestCachePolicy:NSURLRequestReturnCacheDataElseLoad];
+
     self=[super initWithSessionConfiguration:configuration];
     return self;
 }
