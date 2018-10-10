@@ -25,7 +25,7 @@
     
     if(self.image){
         
-        [[ServerCommunication   alloc] uploadImage:self.image];
+        [[ServerCommunication   alloc] testUploadImage:self.image];
     }
         
 }
