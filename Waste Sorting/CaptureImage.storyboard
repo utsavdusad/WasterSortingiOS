@@ -21,6 +21,14 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JJ1-zb-It8">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z0A-Gd-KkW">
+                                <rect key="frame" x="222" y="568" width="88" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Select Photo"/>
+                                <connections>
+                                    <action selector="selectPhoto:" destination="67S-so-fhb" eventType="touchUpInside" id="vyf-T8-9c0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -33,6 +41,9 @@
                         <viewLayoutGuide key="safeArea" id="z3h-1d-Hro"/>
                     </view>
                     <navigationItem key="navigationItem" id="Vwq-aT-48h"/>
+                    <connections>
+                        <outlet property="imageview" destination="JJ1-zb-It8" id="QAv-8u-FRv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1KP-8H-wWH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

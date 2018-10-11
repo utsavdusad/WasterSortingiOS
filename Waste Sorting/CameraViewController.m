@@ -8,7 +8,8 @@
 
 #import "CameraViewController.h"
 
-@interface CameraViewController ()
+@interface CameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@property (weak, nonatomic) IBOutlet UIImageView *imageview;
 
 @end
 
@@ -17,6 +18,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,5 +40,15 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)selectPhoto:(id)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+    
+}
 
 @end

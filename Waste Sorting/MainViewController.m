@@ -11,7 +11,7 @@
 #import "ServerCommunication.h"
 #import "CameraViewController.h"
 
-@interface MainViewController ()<QBImagePickerControllerDelegate>
+@interface MainViewController ()<QBImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (strong, nonatomic) UIImage *image;
 @end
 
@@ -38,23 +38,42 @@
 
 - (IBAction)showCamera:(id)sender {
     
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"CaptureImage"
-                                                             bundle: nil];
+//    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"CaptureImage"
+//                                                             bundle: nil];
+//
+//    //    [self.navigationController setNavigationBarHidden:YES];
+//    //    [self.navigationController setToolbarHidden:YES animated:YES];
+//
+//    CameraViewController *controller = (CameraViewController*)[mainStoryboard
+//                                                               instantiateViewControllerWithIdentifier:@"CameraViewController"];
+//
+//
+//    //    controller.hidesBottomBarWhenPushed=YES;
+//
+//    [self.navigationController showViewController:controller sender:nil];
     
-    //    [self.navigationController setNavigationBarHidden:YES];
-    //    [self.navigationController setToolbarHidden:YES animated:YES];
     
-    CameraViewController *controller = (CameraViewController*)[mainStoryboard
-                                                               instantiateViewControllerWithIdentifier:@"CameraViewController"];
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
+    [self presentViewController:picker animated:YES completion:NULL];
     
-    //    controller.hidesBottomBarWhenPushed=YES;
-    
-    [self.navigationController showViewController:controller sender:nil];
+}   
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+      [self dismissViewControllerAnimated:YES completion:NULL];
+//   UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.imageView.image = image;
+    });
     
 }
-
-
+-(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+   [self dismissViewControllerAnimated:YES completion:NULL];
+}
 
 - (IBAction)selectPhoto:(id)sender {
     QBImagePickerController *imagePickerController = [QBImagePickerController new];
