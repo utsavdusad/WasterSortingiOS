@@ -2,6 +2,8 @@
 #import "Constants.h"
 #import "DefaultSessionManager.h"
 
+
+
 //  Created by Rhythm Sharma on 9/30/18.
 //  Copyright © 2018 Hygiea. All rights reserved.
 
@@ -24,7 +26,30 @@
     [task resume];
 }
 
--(void)testUploadImage:(UIImage *)image{
+//Inputs: 1. PHAsset
+//Outputs: returns the file name for the PHasset.
+-(NSString *) getFileNameForAsset:(PHAsset *)asset {
+    
+    
+ 
+        //If a new file then add a random string to the caption otherwise return the file name form the file list object.
+        NSArray *resources = [PHAssetResource assetResourcesForAsset:asset];
+        NSString *orgFilename = ((PHAssetResource*)resources[0]).originalFilename;
+        NSString *fileWithoutExtension=[orgFilename stringByDeletingPathExtension];
+        NSString *fileExtension=[orgFilename pathExtension];
+        return [[fileWithoutExtension stringByAppendingString:[NSString stringWithFormat:@"_%ld",(long)[self randomNumberGenerator]] ]stringByAppendingPathExtension:fileExtension];
+
+    
+}
+//It geneates random 8 digit number.
+-(NSInteger)randomNumberGenerator{
+    
+    return arc4random_uniform(100000000) -1 ;
+    
+}
+
+-(void) uploadImage:(UIImage *)image withImageName:(NSString *)imageName{
+    
     
     NSURL *theURL = [NSURL URLWithString:SERVER_PATH];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
@@ -47,12 +72,12 @@
     
     // creating a NSData representation of the image
     NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
-    NSString *fileNameStr = [NSString stringWithFormat:@"utsav.jpg"];
+    
     
     // if we have successfully obtained a NSData representation of the image
     if (imageData) {
         [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"upload\"; filename=\"%@\"\r\n", fileNameStr] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"upload\"; filename=\"%@\"\r\n", imageName] dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
         [body appendData:imageData];
         [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
@@ -77,6 +102,38 @@
     }];
     [task resume];
     // send the request
+    
+    
+}
+-(void)testUploadImage:(PHAsset *)asset{
+    
+    PHImageRequestOptions *requestOptions = [[PHImageRequestOptions alloc] init];
+    requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
+    requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    requestOptions.synchronous = YES;
+    
+    PHImageManager *manager = [PHImageManager defaultManager];
+    __weak ServerCommunication *weakSelf = self;
+    [manager requestImageForAsset:asset
+                       targetSize:PHImageManagerMaximumSize
+                      contentMode:PHImageContentModeDefault
+                          options:requestOptions
+                    resultHandler:^void(UIImage *image, NSDictionary *info) {
+                        
+                        if ([info objectForKey:@"PHImageFileURLKey"]) {
+                            // path looks like this -
+                            NSURL *path = [info objectForKey:@"PHImageFileURLKey"];
+                            NSLog(@"%@",path);
+                        }
+                       NSString *filename=[weakSelf getFileNameForAsset:asset];
+                      [weakSelf uploadImage:image withImageName:filename];
+                        
+                        
+                    }];
+    
+    
+    
+   
 
 }
 

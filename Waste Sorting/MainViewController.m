@@ -12,7 +12,7 @@
 #import "CameraViewController.h"
 
 @interface MainViewController ()<QBImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
-@property (strong, nonatomic) UIImage *image;
+@property (strong, nonatomic) PHAsset *asset;
 @end
 
 @implementation MainViewController
@@ -23,9 +23,9 @@
 }
 - (IBAction)uploadPhotoToServer:(id)sender {
     
-    if(self.image){
+    if(self.asset){
         
-        [[ServerCommunication   alloc] testUploadImage:self.image];
+        [[ServerCommunication   alloc] testUploadImage:self.asset];
     }
         
 }
@@ -100,6 +100,7 @@
     __weak MainViewController *weakSelf = self;
     [assets enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         PHAsset *asset=(PHAsset *)obj;
+        weakSelf.asset=asset;
         PHImageRequestOptions *requestOptions = [[PHImageRequestOptions alloc] init];
         requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
         requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
@@ -113,7 +114,6 @@
                         resultHandler:^void(UIImage *image, NSDictionary *info) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                             weakSelf.imageView.image = image;
-                        weakSelf.image= image;
                           });
                             
                         }];
