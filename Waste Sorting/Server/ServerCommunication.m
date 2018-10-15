@@ -99,6 +99,36 @@
     NSURLSessionDataTask *task =[[DefaultSessionManager manager] dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         NSLog(@"%@",error);
         NSLog(@"%@",response);
+        NSString *mssg;
+        if (error || [[responseObject valueForKey:@"status"] intValue]!=200)
+            mssg = @"Image not uploaded";
+        else
+            mssg = @"Image uploaded successfully";
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            UIWindow* window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+            window.rootViewController = [UIViewController new];
+            window.windowLevel = UIWindowLevelAlert + 1;
+            UIAlertController* alertCtrl = [UIAlertController alertControllerWithTitle:@"Important" message:mssg preferredStyle:UIAlertControllerStyleAlert];
+            
+            
+           UIAlertAction *okAction= [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                window.hidden = YES;
+                NSLog(@"Oh Yeah!");
+            }];
+            
+            [alertCtrl addAction:okAction];
+            //http://stackoverflow.com/questions/25260290/makekeywindow-vs-makekeyandvisible
+            [window makeKeyAndVisible]; //The makeKeyAndVisible message makes a window key, and moves it to be in front of any other windows on its level
+            [alertCtrl.view setNeedsLayout];
+            [window.rootViewController presentViewController:alertCtrl animated:YES completion:nil];
+            
+        });
+        
+       
+        
     }];
     [task resume];
     // send the request
