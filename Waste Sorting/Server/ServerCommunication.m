@@ -100,10 +100,12 @@
         NSLog(@"%@",error);
         NSLog(@"%@",response);
         NSString *mssg;
-        if (error || [[responseObject valueForKey:@"status"] intValue]!=200)
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+//        NSLog(@"response status code: %ld", (long)[httpResponse statusCode]);
+        if (error || (long)[httpResponse statusCode]!=200)
             mssg = @"Image not uploaded";
         else
-            mssg = @"Image uploaded successfully";
+            mssg = [responseObject valueForKey:@"trashBin"];
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -157,14 +159,7 @@
                         }
                        NSString *filename=[weakSelf getFileNameForAsset:asset];
                       [weakSelf uploadImage:image withImageName:filename];
-                        
-                        
                     }];
-    
-    
-    
-   
-
 }
 
 
