@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="huM-b9-oEc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,43 +19,69 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SoD-DT-z9B">
-                                <rect key="frame" x="80" y="392" width="88" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Select Photo"/>
-                                <connections>
-                                    <action selector="selectPhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wft-1m-Jos"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EVr-sg-nej">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="333.5"/>
+                                <rect key="frame" x="0.0" y="167" width="375" height="334"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GOJ-FF-cUU">
-                                <rect key="frame" x="216" y="392" width="50" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Upload"/>
-                                <connections>
-                                    <action selector="uploadPhotoToServer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AHA-jK-RSX"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="EVr-sg-nej" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="CfF-5Z-hjd"/>
+                            <constraint firstItem="EVr-sg-nej" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="EwN-e0-DrG"/>
+                            <constraint firstItem="EVr-sg-nej" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Exs-ym-Bzm"/>
                             <constraint firstItem="EVr-sg-nej" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Uq1-xO-LQO"/>
                             <constraint firstItem="EVr-sg-nej" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ZAO-YJ-jhL"/>
                             <constraint firstItem="EVr-sg-nej" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.5" id="ciy-82-fIz"/>
-                            <constraint firstItem="EVr-sg-nej" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="iVE-Ud-lgt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem title="Camera" id="StJ-Xu-rDh">
+                            <connections>
+                                <action selector="showCamera:" destination="BYZ-38-t0r" id="HCA-wJ-Dxa"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Select Photo" id="vRj-Dv-kRq">
+                            <connections>
+                                <action selector="selectPhoto:" destination="BYZ-38-t0r" id="mf2-pk-BMT"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Upload" id="CAv-Jf-N4h">
+                            <connections>
+                                <action selector="uploadPhotoToServer:" destination="BYZ-38-t0r" id="OZ7-TC-jMp"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="KrJ-de-qg2"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="EVr-sg-nej" id="Ea3-xa-sI4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="33.733133433283363"/>
+            <point key="canvasLocation" x="844" y="85.907046476761622"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Da8-Sn-fit">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="huM-b9-oEc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zuG-EA-VFy">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fYP-41-p3T">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="pSd-TO-MDd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aKT-Rs-6vu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-95.200000000000003" y="85.907046476761622"/>
         </scene>
     </scenes>
 </document>

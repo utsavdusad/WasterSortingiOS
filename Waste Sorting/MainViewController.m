@@ -9,9 +9,10 @@
 #import "MainViewController.h"
 #import "QBImagePickerController.h"
 #import "ServerCommunication.h"
+#import "CameraViewController.h"
 
-@interface MainViewController ()<QBImagePickerControllerDelegate>
-@property (strong, nonatomic) UIImage *image;
+@interface MainViewController ()<QBImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@property (strong, nonatomic) PHAsset *asset;
 @end
 
 @implementation MainViewController
@@ -22,8 +23,9 @@
 }
 - (IBAction)uploadPhotoToServer:(id)sender {
     
-    if(self.image){
-        [[ServerCommunication   alloc] uploadImage:self.image];
+    if(self.asset){
+        
+        [[ServerCommunication   alloc] testUploadImage:self.asset];
     }
         
 }
@@ -34,8 +36,44 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)showCamera:(id)sender {
+    
+//    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"CaptureImage"
+//                                                             bundle: nil];
+//
+//    //    [self.navigationController setNavigationBarHidden:YES];
+//    //    [self.navigationController setToolbarHidden:YES animated:YES];
+//
+//    CameraViewController *controller = (CameraViewController*)[mainStoryboard
+//                                                               instantiateViewControllerWithIdentifier:@"CameraViewController"];
+//
+//
+//    //    controller.hidesBottomBarWhenPushed=YES;
+//
+//    [self.navigationController showViewController:controller sender:nil];
+    
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+    
+}   
 
-
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+      [self dismissViewControllerAnimated:YES completion:NULL];
+//   UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.imageView.image = image;
+    });
+    
+}
+-(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+   [self dismissViewControllerAnimated:YES completion:NULL];
+}
 
 - (IBAction)selectPhoto:(id)sender {
     QBImagePickerController *imagePickerController = [QBImagePickerController new];
@@ -62,6 +100,7 @@
     __weak MainViewController *weakSelf = self;
     [assets enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         PHAsset *asset=(PHAsset *)obj;
+        weakSelf.asset=asset;
         PHImageRequestOptions *requestOptions = [[PHImageRequestOptions alloc] init];
         requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
         requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
@@ -75,7 +114,6 @@
                         resultHandler:^void(UIImage *image, NSDictionary *info) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                             weakSelf.imageView.image = image;
-                        weakSelf.image= image;
                           });
                             
                         }];
