@@ -29,9 +29,6 @@
 //Inputs: 1. PHAsset
 //Outputs: returns the file name for the PHasset.
 -(NSString *) getFileNameForAsset:(PHAsset *)asset {
-    
-    
- 
         //If a new file then add a random string to the caption otherwise return the file name form the file list object.
         NSArray *resources = [PHAssetResource assetResourcesForAsset:asset];
         NSString *orgFilename = ((PHAssetResource*)resources[0]).originalFilename;
@@ -47,6 +44,8 @@
     return arc4random_uniform(100000000) -1 ;
     
 }
+
+
 
 -(void) uploadImage:(UIImage *)image withImageName:(NSString *)imageName{
     
@@ -94,7 +93,7 @@
     [request setHTTPBody:body];
     
     
-    
+
     
     NSURLSessionDataTask *task =[[DefaultSessionManager manager] dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         NSLog(@"%@",error);
@@ -137,6 +136,44 @@
     
     
 }
+
+-(UIImage *) compressImage:(UIImage *)image{
+    float actualHeight = image.size.height;
+    float actualWidth = image.size.width;
+    float maxHeight = 600.0;
+    float maxWidth = 800.0;
+    float imgRatio = actualWidth/actualHeight;
+    float maxRatio = maxWidth/maxHeight;
+    float compressionQuality = 0.5;//50 percent compression
+    NSData *imgData = UIImageJPEGRepresentation(image, 1.0);
+    NSLog(@"Size of Image before compression(bytes):%lu",(unsigned long)[imgData length]);
+    if (actualHeight > maxHeight || actualWidth > maxWidth){
+        if(imgRatio < maxRatio){
+            //adjust width according to maxHeight
+            imgRatio = maxHeight / actualHeight;
+            actualWidth = imgRatio * actualWidth;
+            actualHeight = maxHeight;
+        }
+        else if(imgRatio > maxRatio){
+            //adjust height according to maxWidth
+            imgRatio = maxWidth / actualWidth;
+            actualHeight = imgRatio * actualHeight;
+            actualWidth = maxWidth;
+        }
+        else{
+            actualHeight = maxHeight;
+            actualWidth = maxWidth;
+        }
+    }
+    CGRect rect = CGRectMake(0.0, 0.0, actualWidth, actualHeight);
+    UIGraphicsBeginImageContext(rect.size);
+    [image drawInRect:rect];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    NSData *imageData = UIImageJPEGRepresentation(img, compressionQuality);
+    NSLog(@"Size of Image after compression(bytes):%lu",(unsigned long)[imageData length]);
+    UIGraphicsEndImageContext();
+    return [UIImage imageWithData:imageData];
+}
 -(void)testUploadImage:(PHAsset *)asset{
     
     PHImageRequestOptions *requestOptions = [[PHImageRequestOptions alloc] init];
@@ -157,8 +194,9 @@
                             NSURL *path = [info objectForKey:@"PHImageFileURLKey"];
                             NSLog(@"%@",path);
                         }
-                       NSString *filename=[weakSelf getFileNameForAsset:asset];
-                      [weakSelf uploadImage:image withImageName:filename];
+                      NSString *filename=[weakSelf getFileNameForAsset:asset];
+                      UIImage *compressImage=[weakSelf compressImage:image ];
+                      [weakSelf uploadImage:compressImage withImageName:filename];
                     }];
 }
 
