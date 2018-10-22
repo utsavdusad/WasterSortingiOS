@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C434C1F217ABA9300E0FD89 /* ProcessingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C1E217ABA9300E0FD89 /* ProcessingViewController.m */; };
 		9C66A83221633C4C00AEC87C /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C66A82D21633C4B00AEC87C /* Constants.m */; };
 		9C8082D72159B7520073EB4C /* hygiea-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C8082D62159B7520073EB4C /* hygiea-logo.png */; };
 		9C93495B21696AAB0025996F /* CaptureImage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C93495A21696AAB0025996F /* CaptureImage.storyboard */; };
@@ -25,6 +26,8 @@
 /* Begin PBXFileReference section */
 		2777066EBD694D1A1568B4FB /* libPods-Waste Sorting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Waste Sorting.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FA99F4C51D124428BB7D9C7 /* Pods-Waste Sorting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waste Sorting.release.xcconfig"; path = "Pods/Target Support Files/Pods-Waste Sorting/Pods-Waste Sorting.release.xcconfig"; sourceTree = "<group>"; };
+		9C434C1D217ABA9300E0FD89 /* ProcessingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessingViewController.h; sourceTree = "<group>"; };
+		9C434C1E217ABA9300E0FD89 /* ProcessingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessingViewController.m; sourceTree = "<group>"; };
 		9C66A82D21633C4B00AEC87C /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		9C66A83121633C4C00AEC87C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		9C8082D62159B7520073EB4C /* hygiea-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hygiea-logo.png"; path = "Images/hygiea-logo.png"; sourceTree = "<group>"; };
@@ -100,6 +103,8 @@
 		9CC742E7215752AB00132866 = {
 			isa = PBXGroup;
 			children = (
+				9C434C1D217ABA9300E0FD89 /* ProcessingViewController.h */,
+				9C434C1E217ABA9300E0FD89 /* ProcessingViewController.m */,
 				9CC742F2215752AB00132866 /* Waste Sorting */,
 				9CC742F1215752AB00132866 /* Products */,
 				CF4D8EE1DD811A6A99229B18 /* Pods */,
@@ -292,7 +297,6 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Waste Sorting/Pods-Waste Sorting-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/AWSLex/AWSLex.bundle,
 				$PODS_CONFIGURATION_BUILD_DIR/QBImagePickerController/QBImagePicker.bundle,
 			);
 			name = "[CP] Copy Pods Resources";
@@ -313,6 +317,7 @@
 			files = (
 				9CC742F8215752AB00132866 /* MainViewController.m in Sources */,
 				9CC74303215752AD00132866 /* main.m in Sources */,
+				9C434C1F217ABA9300E0FD89 /* ProcessingViewController.m in Sources */,
 				9CC742F5215752AB00132866 /* AppDelegate.m in Sources */,
 				9C934976216995590025996F /* ServerCommunication.m in Sources */,
 				9C934979216995620025996F /* DefaultSessionManager.m in Sources */,

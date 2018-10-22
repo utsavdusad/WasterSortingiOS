@@ -1,6 +1,8 @@
 #import "ServerCommunication.h"
 #import "Constants.h"
 #import "DefaultSessionManager.h"
+#import "MZFormSheetPresentationViewController.h"
+#import "ProcessingViewController.h"
 
 
 
@@ -93,7 +95,7 @@
     [request setHTTPBody:body];
     
     
-
+    
     
     NSURLSessionDataTask *task =[[DefaultSessionManager manager] dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         NSLog(@"%@",error);
@@ -174,6 +176,146 @@
     UIGraphicsEndImageContext();
     return [UIImage imageWithData:imageData];
 }
+-(void) uploadImage1:(UIImage *)image withImageName:(NSString *)imageName{
+    NSURL *theURL = [NSURL URLWithString:SERVER_PATH];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
+    
+    // setting the HTTP method
+    [request setHTTPMethod:@"POST"];
+    
+    // we want a JSON response
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    // Prepare a temporary file to store the multipart request prior to sending it to the server due to an alleged
+    // bug in NSURLSessionTask.
+    NSString* tmpFilename = [NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]];
+    NSURL* tmpFileUrl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:tmpFilename]];
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ProcessingViewController *pvc = (ProcessingViewController   *)[mainStoryboard
+                            instantiateViewControllerWithIdentifier:@"ProcessingViewController"];
+    UIWindow *windowp= [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    [self showProcessingView:pvc onWindow:windowp];
+    
+    // Create a multipart form request.
+    NSMutableURLRequest *multipartRequest = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:SERVER_PATH parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+        NSString *fileName=imageName;
+        NSData *imageData = UIImageJPEGRepresentation(image, 1);
+        [formData appendPartWithFileData:imageData name:@"upload" fileName:fileName mimeType:@"image/jpeg"];
+        
+    } error:nil];
+    
+    multipartRequest.timeoutInterval = 1000 * 60.0;
+    
+    
+    
+    // Dump multipart request into the temporary file.
+    [[AFHTTPRequestSerializer serializer]
+     requestWithMultipartFormRequest:multipartRequest
+     writingStreamContentsToFile:tmpFileUrl
+     completionHandler:^(NSError *error) {
+         // Here note that we are submitting the initial multipart request. We are, however,
+         // forcing the body stream to be read from the temporary file.
+         NSURLSessionUploadTask *uploadTask = [[DefaultSessionManager sharedManager] uploadTaskWithRequest:multipartRequest fromFile:tmpFileUrl progress:^(NSProgress * _Nonnull uploadProgress) {
+//                            NSDictionary* userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithDouble:uploadProgress.fractionCompleted],@"progress", nil];
+//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"UPLOAD_PROGRESS" object:self userInfo:userInfo];
+             dispatch_async(dispatch_get_main_queue(), ^{
+             pvc.progressView.progress=uploadProgress.fractionCompleted;
+            pvc.progressPercentage.text= [NSString stringWithFormat:@"%.2f",uploadProgress.fractionCompleted*100];
+             });
+             
+         }
+        completionHandler:^(NSURLResponse *response, id responseObject, NSError *error){
+            dispatch_async(dispatch_get_main_queue(), ^{
+            windowp.hidden=YES;
+            // Cleanup: remove temporary file.
+            [[NSFileManager defaultManager] removeItemAtURL:tmpFileUrl error:nil];
+            NSLog(@"%@",error);
+            NSLog(@"%@",response);
+            NSString *mssg;
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+            
+            if (error || (long)[httpResponse statusCode]!=200)
+                mssg = @"Image not uploaded";
+            else
+                mssg = [responseObject valueForKey:@"trashBin"];
+            
+                UIWindow* window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                window.rootViewController = [UIViewController new];
+                window.windowLevel = UIWindowLevelAlert + 1;
+                
+                UIAlertController* alertCtrl = [UIAlertController alertControllerWithTitle:@"Important" message:mssg preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *okAction= [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                                                                                              
+                    
+                    window.hidden = YES;
+                    
+                    NSLog(@"Oh Yeah!");
+                    
+                }];
+                                                                                                          
+                
+                [alertCtrl addAction:okAction];
+                
+                //http://stackoverflow.com/questions/25260290/makekeywindow-vs-makekeyandvisible
+                
+                [window makeKeyAndVisible]; //The makeKeyAndVisible message makes a window key, and moves it to be in front of any other windows on its level
+                
+                [alertCtrl.view setNeedsLayout];
+                
+                [window.rootViewController presentViewController:alertCtrl animated:YES completion:nil];
+                                                                                                          
+                
+            });
+            
+        }];
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            
+                                                
+
+         
+         // Start the upload.
+         
+         [uploadTask resume];
+                                                            
+                                                            
+         
+     }];
+    
+}
+
+-(void)setupBackgroundWindow{
+    // Set Default Background collor for all presentation controllers
+    [[MZFormSheetPresentationController appearance] setBackgroundColor:[[UIColor darkGrayColor] colorWithAlphaComponent:0.3]];
+    
+}
+
+-(void)showProcessingView:(ProcessingViewController *)pvc onWindow:(UIWindow *)window{
+    [self setupBackgroundWindow];
+    
+    window.windowLevel = UIWindowLevelAlert + 1;
+    window.rootViewController = [UIViewController new];
+    MZFormSheetPresentationViewController *formSheetController = [[MZFormSheetPresentationViewController alloc] initWithContentViewController:pvc];
+    
+    formSheetController.presentationController.contentViewSize = CGSizeMake(window.rootViewController.view.frame.size.width*0.40, window.rootViewController.view.frame.size.height*0.15);
+    
+    
+    formSheetController.presentationController.shouldCenterVertically = YES;
+    
+    
+    
+     [window makeKeyAndVisible];
+    [window.rootViewController presentViewController:formSheetController animated:YES completion:nil];
+}
+
+-(void)dismissProcessingView:(ProcessingViewController *)pvc{
+    
+    
+}
 -(void)testUploadImage:(PHAsset *)asset{
     
     PHImageRequestOptions *requestOptions = [[PHImageRequestOptions alloc] init];
@@ -196,7 +338,7 @@
                         }
                       NSString *filename=[weakSelf getFileNameForAsset:asset];
                       UIImage *compressImage=[weakSelf compressImage:image ];
-                      [weakSelf uploadImage:compressImage withImageName:filename];
+                      [weakSelf uploadImage1:compressImage withImageName:filename];
                     }];
 }
 

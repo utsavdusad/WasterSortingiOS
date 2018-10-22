@@ -3,7 +3,9 @@
 
 //  Created by Rhythm Sharma on 9/30/18.
 //  Copyright © 2018 Hygiea. All rights reserved.
+@interface DefaultSessionManager ()
 
+@end
 @implementation DefaultSessionManager
 
 + (instancetype)sharedManager{
@@ -23,9 +25,13 @@
     NSURLSessionConfiguration *configuration=[NSURLSessionConfiguration defaultSessionConfiguration];
     [configuration setURLCache:[NSURLCache sharedURLCache]];
 //    [configuration setRequestCachePolicy:NSURLRequestReturnCacheDataElseLoad];
-
+    
     self=[super initWithSessionConfiguration:configuration];
     return self;
 }
+
+
+
+
 
 @end
