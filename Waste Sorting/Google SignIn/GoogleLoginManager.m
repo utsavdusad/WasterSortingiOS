@@ -50,6 +50,11 @@ static GoogleLoginManager *_sharedLoginManager = nil;
 //    [[GIDSignIn sharedInstance] signIn];
 
 //    //    [[UIApplication sharedApplication] keyWindow] setYser
+    
+    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
+  
+            [[GIDSignIn sharedInstance] signInSilently];
+    }
 }
 - (void)tryLogout{
     [[GIDSignIn sharedInstance] disconnect];

@@ -23,6 +23,15 @@
 //    [GoogleLoginManager sharedLoginManager].delegate=self;
     [GIDSignIn sharedInstance].uiDelegate = self;
    
+//    [[GIDSignIn sharedInstance] signInSilently];
+    
+ 
+//    [[[[GIDSignIn sharedInstance] currentUser] authentication] accessToken]
+    
+    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
+        [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
+//        [[GIDSignIn sharedInstance] signInSilently];
+    }
     
 }
 
