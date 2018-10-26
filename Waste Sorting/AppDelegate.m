@@ -9,8 +9,11 @@
 #import "AppDelegate.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "MainViewController.h"
+#import "Constants.h"
+#import "GoogleLoginManager.h"
+@import GoogleSignIn;
 
-@interface AppDelegate ()
+@interface AppDelegate () <UIApplicationDelegate>
 
 @end
 
@@ -20,22 +23,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [AFNetworkActivityIndicatorManager sharedManager].enabled =YES;
-     [AFNetworkActivityIndicatorManager sharedManager].activationDelay =0;
+    [AFNetworkActivityIndicatorManager sharedManager].activationDelay =0;
+    [GIDSignIn sharedInstance].clientID = CLIENT_ID;
     
-    BOOL userLoggedIn = [self checkIfLoginKeyAvailable]; //
+    
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     
-    if(userLoggedIn){
-        //show home page
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        MainViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"navHomeID"];
-        self.window.rootViewController = rootViewController;
-        
-        
-    }else{
-        //show login page
-    }
-   
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle: nil];
+    MainViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"loginNavId"];
+    self.window.rootViewController = rootViewController;
+    
     [self.window makeKeyAndVisible];
     
     return YES;
@@ -83,6 +81,18 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<NSString *, id> *)options {
+
+    
+    if ([GoogleLoginManager handleURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]]) {
+        return [GoogleLoginManager handleURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+    }
+    return YES;
 }
 
 

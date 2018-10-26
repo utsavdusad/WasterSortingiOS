@@ -10,5 +10,13 @@
 
 @implementation GIDGoogleUserInfo
 
+- (instancetype)initWithUser:(GIDGoogleUser*)signInUser {
+    self = [super init];
+    if( self ) {
+        self.user = signInUser;
+    }
+    return self;
+}
+
 
 @end

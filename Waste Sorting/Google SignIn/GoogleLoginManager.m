@@ -19,6 +19,7 @@ static GoogleLoginManager *_sharedLoginManager = nil;
 + (instancetype)sharedLoginManager {
     if (!_sharedLoginManager) {
         _sharedLoginManager = [[GoogleLoginManager alloc] init];
+
     }
     return _sharedLoginManager;
 }
@@ -29,10 +30,14 @@ static GoogleLoginManager *_sharedLoginManager = nil;
                                       annotation:annotation];
 }
 
+
+
+
 - (void)tryLoginWith:(id<GoogleLoginManagerDelegate>)delegate {
     
-//    self.delegate = delegate;
-//
+    NSLog(@"I M THE BEST");
+    self.delegate = delegate;
+////
 //    NSError* configureError;
 //    [[GGLContext sharedInstance] configureWithError: &configureError];
 //    if (configureError != nil) {
@@ -40,10 +45,10 @@ static GoogleLoginManager *_sharedLoginManager = nil;
 //    }
 //
 //    [GIDSignIn sharedInstance].uiDelegate = self;
-//    [GIDSignIn sharedInstance].delegate = self;
+    [GIDSignIn sharedInstance].delegate = self;
 //    [GIDSignIn sharedInstance].scopes = @[@"https://www.googleapis.com/auth/plus.me",@"https://www.googleapis.com/auth/plus.stream.read"];
 //    [[GIDSignIn sharedInstance] signIn];
-//
+
 //    //    [[UIApplication sharedApplication] keyWindow] setYser
 }
 - (void)tryLogout{
@@ -82,8 +87,10 @@ static GoogleLoginManager *_sharedLoginManager = nil;
             
             NSURLSession *urlSession = [NSURLSession sharedSession];
             [[urlSession dataTaskWithRequest:urlRequest completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:false];
-                NSError *e = nil;
+                dispatch_async(dispatch_get_main_queue(), ^(void){
+                    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:false];
+                });
+                                   NSError *e = nil;
                 NSDictionary *userData = [NSJSONSerialization JSONObjectWithData: data options: NSJSONReadingMutableContainers error: &e];
                 
                 if (!userData) {
@@ -134,7 +141,9 @@ static GoogleLoginManager *_sharedLoginManager = nil;
 // Stop the UIActivityIndicatorView animation that was started when the user
 // pressed the Sign In button
 - (void)signInWillDispatch:(GIDSignIn *)signIn error:(NSError *)error {
-    //  [myActivityIndicator stopAnimating];
+    //1
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:false];
+    
 }
 
 // Present a view that prompts the user to sign in with Google
