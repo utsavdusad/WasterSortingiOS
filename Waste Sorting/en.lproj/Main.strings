@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2cr-iW-Ren"; */
+"2cr-iW-Ren.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Upload"; ObjectID = "CAv-Jf-N4h"; */
+"CAv-Jf-N4h.title" = "Upload";
+
+/* Class = "UIBarButtonItem"; title = "Camera"; ObjectID = "StJ-Xu-rDh"; */
+"StJ-Xu-rDh.title" = "Camera";
+
+/* Class = "UILabel"; text = "Image Uploading Progress"; ObjectID = "mCd-gq-qd5"; */
+"mCd-gq-qd5.text" = "Image Uploading Progress";
+
+/* Class = "UIBarButtonItem"; title = "Select Photo"; ObjectID = "vRj-Dv-kRq"; */
+"vRj-Dv-kRq.title" = "Select Photo";

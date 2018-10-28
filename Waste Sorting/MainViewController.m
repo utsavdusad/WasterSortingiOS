@@ -10,6 +10,8 @@
 #import "QBImagePickerController.h"
 #import "ServerCommunication.h"
 #import "CameraViewController.h"
+#import "GoogleLoginManager.h"
+#import "LoginViewController.h"
 
 @interface MainViewController ()<QBImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (strong, nonatomic) PHAsset *asset;
@@ -127,9 +129,13 @@
 
 - (void)qb_imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController
 {
-  
-    
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
+- (IBAction)logout:(id)sender {
+      [[GoogleLoginManager sharedLoginManager] tryLogout];
+
 }
 
 @end

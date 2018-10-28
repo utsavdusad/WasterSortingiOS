@@ -95,8 +95,9 @@
     NSLog(@"error");
 }
 - (void)didDisconnect{
-    
-    NSLog(@"error");
+
+    [self.navigationController popToViewController:self animated:YES];
+ 
     
 }
 - (void)didFailWithError:(NSError*)error{

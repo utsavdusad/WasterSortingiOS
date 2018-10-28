@@ -68,6 +68,7 @@
 		9CC742FF215752AD00132866 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9CC74301215752AD00132866 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CC74302215752AD00132866 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9CDE0D3A2186688900FAA0F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +382,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				9CC742FA215752AB00132866 /* Base */,
+				9CDE0D3A2186688900FAA0F5 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
