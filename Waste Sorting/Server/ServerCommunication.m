@@ -37,7 +37,6 @@
         NSString *fileWithoutExtension=[orgFilename stringByDeletingPathExtension];
         NSString *fileExtension=[orgFilename pathExtension];
         return [[fileWithoutExtension stringByAppendingString:[NSString stringWithFormat:@"_%ld",(long)[self randomNumberGenerator]] ]stringByAppendingPathExtension:fileExtension];
-
     
 }
 //It geneates random 8 digit number.
@@ -270,14 +269,7 @@
             
         }];
                                                             
-                                                            
-                                                            
-                                                            
-                                                            
-                                                            
-                                                
-
-         
+    
          // Start the upload.
          
          [uploadTask resume];

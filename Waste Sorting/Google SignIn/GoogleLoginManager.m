@@ -137,6 +137,9 @@ static GoogleLoginManager *_sharedLoginManager = nil;
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(didDisconnect)] && !error) {
         [self.delegate didDisconnect];
+        
+       
+    
     }
 }
 
