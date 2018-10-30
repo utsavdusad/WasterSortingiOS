@@ -90,6 +90,28 @@
 }
 - (void)didLogout{
     NSLog(@"error");
+    UIAlertController * alert = [UIAlertController
+                                 alertControllerWithTitle:@"Important"
+                                 message:@"Login Not successful"
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    //Add Buttons
+    
+    UIAlertAction* okButton = [UIAlertAction
+                                actionWithTitle:@"ok"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * action) {
+                                    //Handle your yes please button action here
+                                  
+                                }];
+
+    
+    //Add your buttons to alert controller
+    
+    [alert addAction:okButton];
+
+    
+    [self presentViewController:alert animated:YES completion:nil];
     
 }
 - (void)didDisconnect{

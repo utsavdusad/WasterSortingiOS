@@ -134,7 +134,37 @@
 
 
 - (IBAction)logout:(id)sender {
-      [[GoogleLoginManager sharedLoginManager] tryLogout];
+
+    UIAlertController * alert = [UIAlertController
+                                 alertControllerWithTitle:@"Important"
+                                 message:@"Do you want to logout?"
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    //Add Buttons
+    
+    UIAlertAction* yesButton = [UIAlertAction
+                               actionWithTitle:@"Yes"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   //Handle your yes please button action here
+                                    [[GoogleLoginManager sharedLoginManager] tryLogout];
+                                   
+                               }];
+    
+    UIAlertAction* noButton = [UIAlertAction
+                                actionWithTitle:@"No"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * action) {
+                                    //Handle your yes please button action here
+                                    
+                                }];
+    
+    //Add your buttons to alert controller
+    
+    [alert addAction:yesButton];
+    [alert addAction:noButton];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 
 }
 
