@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "MainViewController.h"
+#import "ServerCommunication.h"
 
 
 @interface LoginViewController () <GoogleLoginManagerDelegate, GIDSignInUIDelegate>
@@ -77,7 +78,30 @@
             
 //                [window makeKeyAndVisible];
             }else{
-                //Alert Invalid credentials
+                //Alert Invalid credential
+                
+                UIAlertController * alert = [UIAlertController
+                                             alertControllerWithTitle:@"SignIn Failed"
+                                             message:error
+                                             preferredStyle:UIAlertControllerStyleAlert];
+                
+                //Add Buttons
+                
+                UIAlertAction* okButton = [UIAlertAction
+                                           actionWithTitle:@"ok"
+                                           style:UIAlertActionStyleDefault
+                                           handler:^(UIAlertAction * action) {
+                                               //Handle your yes please button action here
+                                               
+                                           }];
+                
+                
+                //Add your buttons to alert controller
+                
+                [alert addAction:okButton];
+                
+                
+                [self presentViewController:alert animated:YES completion:nil];
                 
                 
                 
@@ -128,7 +152,16 @@
 
 -(void)authenticateUser:(NSString *)idToken withCompletionHandler:(void (^)(bool isLoginSuccessfull, NSString* error))completionHandler{
     
-    completionHandler(true,nil);
+    [[ServerCommunication   alloc] signInWithCompletion:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        if (!error){
+            completionHandler(true,nil);
+        }else{
+          
+             completionHandler(true,[error localizedDescription]);
+        }
+            
+    }];
+    
     
     //check token with the server
 }

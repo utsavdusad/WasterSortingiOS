@@ -3,6 +3,8 @@
 #import "DefaultSessionManager.h"
 #import "MZFormSheetPresentationViewController.h"
 #import "ProcessingViewController.h"
+#import "GoogleLoginManager.h"
+#import "BackgroundSessionManager.h"
 
 
 
@@ -11,22 +13,7 @@
 
 @implementation ServerCommunication{}
 
-// Upload the image to server
--(void) uploadImage:(UIImage *)image{
 
-    NSURLSessionConfiguration *configuration=[NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:SERVER_ADDRESS]];
-    NSURLSession *session =[NSURLSession sessionWithConfiguration:configuration];
-    NSURLSessionDataTask *task= [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            NSLog(@"Error: %@", error);
-            NSString* newStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"Answer: %@", newStr);
-            NSLog(@"%@",error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey]);
-            NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
-            NSLog(@"%@",ErrorResponse);
-    }];
-    [task resume];
-}
 
 //Inputs: 1. PHAsset
 //Outputs: returns the file name for the PHasset.
@@ -47,97 +34,7 @@
 }
 
 
-
--(void) uploadImage:(UIImage *)image withImageName:(NSString *)imageName{
-    
-    
-    NSURL *theURL = [NSURL URLWithString:SERVER_PATH];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
-    
-    // setting the HTTP method
-    [request setHTTPMethod:@"POST"];
-    
-    // we want a JSON response
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
-    // the boundary string. Can be whatever we want, as long as it doesn't appear as part of "proper" fields
-    NSString *boundary = @"wasteSorting";
-    
-    // setting the Content-type and the boundary
-    NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary];
-    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
-    
-    // we need a buffer of mutable data where we will write the body of the request
-    NSMutableData *body = [NSMutableData data];
-    
-    // creating a NSData representation of the image
-    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
-    
-    
-    // if we have successfully obtained a NSData representation of the image
-    if (imageData) {
-        [body appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"upload\"; filename=\"%@\"\r\n", imageName] dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:[@"Content-Type: image/jpeg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-        [body appendData:imageData];
-        [body appendData:[[NSString stringWithFormat:@"\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-    }
-    else
-        NSLog(@"no image data!!!");
-    
-    
-    // we close the body with one last boundary
-    [body appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    
-    // assigning the completed NSMutableData buffer as the body of the HTTP POST request
-    [request setHTTPBody:body];
-    
-    
-    
-    
-    NSURLSessionDataTask *task =[[DefaultSessionManager manager] dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        NSLog(@"%@",error);
-        NSLog(@"%@",response);
-        NSString *mssg;
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-//        NSLog(@"response status code: %ld", (long)[httpResponse statusCode]);
-        if (error || (long)[httpResponse statusCode]!=200)
-            mssg = @"Image not uploaded";
-        else
-            mssg = [responseObject valueForKey:@"trashBin"];
-        
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            UIWindow* window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-            window.rootViewController = [UIViewController new];
-            window.windowLevel = UIWindowLevelAlert + 1;
-            UIAlertController* alertCtrl = [UIAlertController alertControllerWithTitle:@"Important" message:mssg preferredStyle:UIAlertControllerStyleAlert];
-            
-            
-           UIAlertAction *okAction= [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
-                window.hidden = YES;
-                NSLog(@"Oh Yeah!");
-            }];
-            
-            [alertCtrl addAction:okAction];
-            //http://stackoverflow.com/questions/25260290/makekeywindow-vs-makekeyandvisible
-            [window makeKeyAndVisible]; //The makeKeyAndVisible message makes a window key, and moves it to be in front of any other windows on its level
-            [alertCtrl.view setNeedsLayout];
-            [window.rootViewController presentViewController:alertCtrl animated:YES completion:nil];
-            
-        });
-        
-       
-        
-    }];
-    [task resume];
-    // send the request
-    
-    
-}
-
+//This method compresses the image. See the issue: https://tree.taiga.io/project/utsavdusad-capstone-ser-517-software-factory-i/task/92?kanban-status=1437704
 -(UIImage *) compressImage:(UIImage *)image{
     float actualHeight = image.size.height;
     float actualWidth = image.size.width;
@@ -175,15 +72,14 @@
     UIGraphicsEndImageContext();
     return [UIImage imageWithData:imageData];
 }
--(void) uploadImage1:(UIImage *)image withImageName:(NSString *)imageName{
+-(void) uploadImage:(UIImage *)image withImageName:(NSString *)imageName{
     NSURL *theURL = [NSURL URLWithString:SERVER_PATH];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
     
     // setting the HTTP method
     [request setHTTPMethod:@"POST"];
     NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
-    [request setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:@"ssoType"];
-    [request setValue:token forHTTPHeaderField:@"token"];
+    
     
     // we want a JSON response
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
@@ -207,8 +103,8 @@
     } error:nil];
     
     multipartRequest.timeoutInterval = 1000 * 60.0;
-    
-    
+    [multipartRequest setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
+    [multipartRequest setValue:token forHTTPHeaderField:@"token"];
     
     // Dump multipart request into the temporary file.
     [[AFHTTPRequestSerializer serializer]
@@ -218,8 +114,6 @@
          // Here note that we are submitting the initial multipart request. We are, however,
          // forcing the body stream to be read from the temporary file.
          NSURLSessionUploadTask *uploadTask = [[DefaultSessionManager sharedManager] uploadTaskWithRequest:multipartRequest fromFile:tmpFileUrl progress:^(NSProgress * _Nonnull uploadProgress) {
-//                            NSDictionary* userInfo = [[NSDictionary alloc] initWithObjectsAndKeys:[NSNumber numberWithDouble:uploadProgress.fractionCompleted],@"progress", nil];
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"UPLOAD_PROGRESS" object:self userInfo:userInfo];
              dispatch_async(dispatch_get_main_queue(), ^{
              pvc.progressView.progress=uploadProgress.fractionCompleted;
             pvc.progressPercentage.text= [NSString stringWithFormat:@"%.2f",uploadProgress.fractionCompleted*100];
@@ -312,24 +206,18 @@
     
 }
 
-
--(void) signIn{
+-(void) signInWithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
     NSURL *theURL = [NSURL URLWithString:SIGN_IN_PATH];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
      NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
     [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:@"ssoType"];
+    [request setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
     [request setValue:token forHTTPHeaderField:@"token"];
     
     NSURLSessionDataTask *task=[[DefaultSessionManager sharedManager] dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        if(error==NULL){
-            
-            NSLog(@"Sucesss");
-            //Successfull login
-            
-            
-        }
+        completionHandler(response,responseObject,error);
     }];
+    
     [task resume];
 }
 
@@ -356,7 +244,7 @@
                         }
                       NSString *filename=[weakSelf getFileNameForAsset:asset];
                       UIImage *compressImage=[weakSelf compressImage:image ];
-                      [weakSelf uploadImage1:compressImage withImageName:filename];
+                      [weakSelf uploadImage:compressImage withImageName:filename];
                     }];
 }
 

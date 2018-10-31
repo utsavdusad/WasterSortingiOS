@@ -7,6 +7,6 @@
 
 @interface ServerCommunication : NSObject
 
--(void) uploadImage:(UIImage *)image;
 -(void)testUploadImage:(PHAsset *)asset;
+-(void) signInWithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler;
 @end
