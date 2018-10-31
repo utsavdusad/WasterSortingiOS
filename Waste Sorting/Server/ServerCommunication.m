@@ -308,6 +308,29 @@
     
     
 }
+
+
+-(void) signIn{
+    NSURL *theURL = [NSURL URLWithString:SIGN_IN_PATH];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
+     NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:@"ssoType"];
+    [request setValue:token forHTTPHeaderField:@"token"];
+    
+    NSURLSessionDataTask *task=[[DefaultSessionManager sharedManager] dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        if(error==NULL){
+            
+            NSLog(@"Sucesss");
+            //Successfull login
+            
+            
+        }
+    }];
+    [task resume];
+}
+
+
 -(void)testUploadImage:(PHAsset *)asset{
     
     PHImageRequestOptions *requestOptions = [[PHImageRequestOptions alloc] init];
