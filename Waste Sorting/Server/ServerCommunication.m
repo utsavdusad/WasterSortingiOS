@@ -181,6 +181,9 @@
     
     // setting the HTTP method
     [request setHTTPMethod:@"POST"];
+    NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
+    [request setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:@"ssoType"];
+    [request setValue:token forHTTPHeaderField:@"token"];
     
     // we want a JSON response
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
