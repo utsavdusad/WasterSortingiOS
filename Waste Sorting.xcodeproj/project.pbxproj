@@ -7,12 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9C434C1F217ABA9300E0FD89 /* ProcessingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C1E217ABA9300E0FD89 /* ProcessingViewController.m */; };
+		9C434C21217E428400E0FD89 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9C434C20217E428300E0FD89 /* credentials.plist */; };
+		9C434C23217E42FB00E0FD89 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C434C22217E42FB00E0FD89 /* LocalAuthentication.framework */; };
+		9C434C25217E430500E0FD89 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C434C24217E430500E0FD89 /* SafariServices.framework */; };
+		9C434C27217E430C00E0FD89 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C434C26217E430B00E0FD89 /* SystemConfiguration.framework */; };
+		9C434C29217E449400E0FD89 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C434C28217E449400E0FD89 /* Login.storyboard */; };
+		9C434C2C217E452E00E0FD89 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C2B217E452E00E0FD89 /* LoginViewController.m */; };
+		9C434C2F217E459D00E0FD89 /* GoogleLoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C2E217E459D00E0FD89 /* GoogleLoginManager.m */; };
+		9C434C32217E47D600E0FD89 /* GIDGoogleUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C31217E47D600E0FD89 /* GIDGoogleUserInfo.m */; };
 		9C66A83221633C4C00AEC87C /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C66A82D21633C4B00AEC87C /* Constants.m */; };
 		9C8082D72159B7520073EB4C /* hygiea-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C8082D62159B7520073EB4C /* hygiea-logo.png */; };
 		9C93495B21696AAB0025996F /* CaptureImage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C93495A21696AAB0025996F /* CaptureImage.storyboard */; };
 		9C93496821696D090025996F /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C93496721696D090025996F /* CameraViewController.m */; };
 		9C934976216995590025996F /* ServerCommunication.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C934975216995590025996F /* ServerCommunication.m */; };
-		9C934979216995620025996F /* DefaultSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C934978216995620025996F /* DefaultSessionManager.m */; };
+		9CBA2F162188CC76000866B8 /* DefaultSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA2F122188CC76000866B8 /* DefaultSessionManager.m */; };
+		9CBA2F172188CC76000866B8 /* BackgroundSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CBA2F142188CC76000866B8 /* BackgroundSessionManager.m */; };
 		9CC742F5215752AB00132866 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC742F4215752AB00132866 /* AppDelegate.m */; };
 		9CC742F8215752AB00132866 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC742F7215752AB00132866 /* MainViewController.m */; };
 		9CC742FB215752AB00132866 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CC742F9215752AB00132866 /* Main.storyboard */; };
@@ -25,6 +35,19 @@
 /* Begin PBXFileReference section */
 		2777066EBD694D1A1568B4FB /* libPods-Waste Sorting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Waste Sorting.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FA99F4C51D124428BB7D9C7 /* Pods-Waste Sorting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waste Sorting.release.xcconfig"; path = "Pods/Target Support Files/Pods-Waste Sorting/Pods-Waste Sorting.release.xcconfig"; sourceTree = "<group>"; };
+		9C434C1D217ABA9300E0FD89 /* ProcessingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessingViewController.h; sourceTree = "<group>"; };
+		9C434C1E217ABA9300E0FD89 /* ProcessingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessingViewController.m; sourceTree = "<group>"; };
+		9C434C20217E428300E0FD89 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
+		9C434C22217E42FB00E0FD89 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		9C434C24217E430500E0FD89 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		9C434C26217E430B00E0FD89 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		9C434C28217E449400E0FD89 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		9C434C2A217E452E00E0FD89 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		9C434C2B217E452E00E0FD89 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		9C434C2D217E459D00E0FD89 /* GoogleLoginManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleLoginManager.h; sourceTree = "<group>"; };
+		9C434C2E217E459D00E0FD89 /* GoogleLoginManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleLoginManager.m; sourceTree = "<group>"; };
+		9C434C30217E47D600E0FD89 /* GIDGoogleUserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GIDGoogleUserInfo.h; sourceTree = "<group>"; };
+		9C434C31217E47D600E0FD89 /* GIDGoogleUserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GIDGoogleUserInfo.m; sourceTree = "<group>"; };
 		9C66A82D21633C4B00AEC87C /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		9C66A83121633C4C00AEC87C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		9C8082D62159B7520073EB4C /* hygiea-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hygiea-logo.png"; path = "Images/hygiea-logo.png"; sourceTree = "<group>"; };
@@ -33,9 +56,11 @@
 		9C93496721696D090025996F /* CameraViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		9C934974216995590025996F /* ServerCommunication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerCommunication.h; path = "Waste Sorting/Server/ServerCommunication.h"; sourceTree = SOURCE_ROOT; };
 		9C934975216995590025996F /* ServerCommunication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerCommunication.m; path = "Waste Sorting/Server/ServerCommunication.m"; sourceTree = SOURCE_ROOT; };
-		9C934977216995620025996F /* DefaultSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DefaultSessionManager.h; path = "Waste Sorting/Server/Server Session/DefaultSessionManager.h"; sourceTree = SOURCE_ROOT; };
-		9C934978216995620025996F /* DefaultSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DefaultSessionManager.m; path = "Waste Sorting/Server/Server Session/DefaultSessionManager.m"; sourceTree = SOURCE_ROOT; };
 		9CA9208D71E1CBE2C0BBDA96 /* Pods-Waste Sorting.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waste Sorting.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Waste Sorting/Pods-Waste Sorting.debug.xcconfig"; sourceTree = "<group>"; };
+		9CBA2F112188CC76000866B8 /* DefaultSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DefaultSessionManager.h; sourceTree = "<group>"; };
+		9CBA2F122188CC76000866B8 /* DefaultSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DefaultSessionManager.m; sourceTree = "<group>"; };
+		9CBA2F142188CC76000866B8 /* BackgroundSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundSessionManager.m; sourceTree = "<group>"; };
+		9CBA2F152188CC76000866B8 /* BackgroundSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundSessionManager.h; sourceTree = "<group>"; };
 		9CC742F0215752AB00132866 /* Waste Sorting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Waste Sorting.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CC742F3215752AB00132866 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9CC742F4215752AB00132866 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -46,6 +71,7 @@
 		9CC742FF215752AD00132866 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9CC74301215752AD00132866 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9CC74302215752AD00132866 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9CDE0D3A2186688900FAA0F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +79,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C434C27217E430C00E0FD89 /* SystemConfiguration.framework in Frameworks */,
+				9C434C25217E430500E0FD89 /* SafariServices.framework in Frameworks */,
+				9C434C23217E42FB00E0FD89 /* LocalAuthentication.framework in Frameworks */,
 				E16896025785B7F8C2F219D6 /* libPods-Waste Sorting.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -63,9 +92,23 @@
 		6584AABC5D29A8CEC1DD28BA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9C434C26217E430B00E0FD89 /* SystemConfiguration.framework */,
+				9C434C24217E430500E0FD89 /* SafariServices.framework */,
+				9C434C22217E42FB00E0FD89 /* LocalAuthentication.framework */,
 				2777066EBD694D1A1568B4FB /* libPods-Waste Sorting.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9C434C33217E485C00E0FD89 /* Google SignIn */ = {
+			isa = PBXGroup;
+			children = (
+				9C434C2D217E459D00E0FD89 /* GoogleLoginManager.h */,
+				9C434C2E217E459D00E0FD89 /* GoogleLoginManager.m */,
+				9C434C30217E47D600E0FD89 /* GIDGoogleUserInfo.h */,
+				9C434C31217E47D600E0FD89 /* GIDGoogleUserInfo.m */,
+			);
+			path = "Google SignIn";
 			sourceTree = "<group>";
 		};
 		9C66A83521633CE300AEC87C /* Constants */ = {
@@ -80,21 +123,105 @@
 		9C66A83621633D7700AEC87C /* Server */ = {
 			isa = PBXGroup;
 			children = (
+				9CBA2F0F2188CC76000866B8 /* Server Session */,
 				9C934974216995590025996F /* ServerCommunication.h */,
 				9C934975216995590025996F /* ServerCommunication.m */,
-				9C66A83721633D9000AEC87C /* Server Session */,
 			);
 			name = Server;
-			path = "New Group";
 			sourceTree = "<group>";
 		};
-		9C66A83721633D9000AEC87C /* Server Session */ = {
+		9CBA2EFD2188BF72000866B8 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				9C934977216995620025996F /* DefaultSessionManager.h */,
-				9C934978216995620025996F /* DefaultSessionManager.m */,
+				9CC742FE215752AD00132866 /* LaunchScreen.storyboard */,
+				9C434C28217E449400E0FD89 /* Login.storyboard */,
+				9CC742F9215752AB00132866 /* Main.storyboard */,
+				9C93495A21696AAB0025996F /* CaptureImage.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		9CBA2EFE2188BF9F000866B8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9CBA2EFF2188BFDB000866B8 /* Login Controller */,
+				9CBA2F002188BFE7000866B8 /* Processing Controller */,
+				9CBA2F012188BFF1000866B8 /* Main Controller */,
+				9CBA2F022188BFFD000866B8 /* Camera Controller */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9CBA2EFF2188BFDB000866B8 /* Login Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9C434C2A217E452E00E0FD89 /* LoginViewController.h */,
+				9C434C2B217E452E00E0FD89 /* LoginViewController.m */,
+			);
+			path = "Login Controller";
+			sourceTree = "<group>";
+		};
+		9CBA2F002188BFE7000866B8 /* Processing Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9C434C1D217ABA9300E0FD89 /* ProcessingViewController.h */,
+				9C434C1E217ABA9300E0FD89 /* ProcessingViewController.m */,
+			);
+			path = "Processing Controller";
+			sourceTree = "<group>";
+		};
+		9CBA2F012188BFF1000866B8 /* Main Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9CC742F6215752AB00132866 /* MainViewController.h */,
+				9CC742F7215752AB00132866 /* MainViewController.m */,
+			);
+			path = "Main Controller";
+			sourceTree = "<group>";
+		};
+		9CBA2F022188BFFD000866B8 /* Camera Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9C93496621696D090025996F /* CameraViewController.h */,
+				9C93496721696D090025996F /* CameraViewController.m */,
+			);
+			path = "Camera Controller";
+			sourceTree = "<group>";
+		};
+		9CBA2F032188C01D000866B8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9C66A83521633CE300AEC87C /* Constants */,
+				9C66A83621633D7700AEC87C /* Server */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		9CBA2F0F2188CC76000866B8 /* Server Session */ = {
+			isa = PBXGroup;
+			children = (
+				9CBA2F102188CC76000866B8 /* Default Session */,
+				9CBA2F132188CC76000866B8 /* Background Session */,
 			);
 			path = "Server Session";
+			sourceTree = "<group>";
+		};
+		9CBA2F102188CC76000866B8 /* Default Session */ = {
+			isa = PBXGroup;
+			children = (
+				9CBA2F112188CC76000866B8 /* DefaultSessionManager.h */,
+				9CBA2F122188CC76000866B8 /* DefaultSessionManager.m */,
+			);
+			path = "Default Session";
+			sourceTree = "<group>";
+		};
+		9CBA2F132188CC76000866B8 /* Background Session */ = {
+			isa = PBXGroup;
+			children = (
+				9CBA2F142188CC76000866B8 /* BackgroundSessionManager.m */,
+				9CBA2F152188CC76000866B8 /* BackgroundSessionManager.h */,
+			);
+			path = "Background Session";
 			sourceTree = "<group>";
 		};
 		9CC742E7215752AB00132866 = {
@@ -118,21 +245,17 @@
 		9CC742F2215752AB00132866 /* Waste Sorting */ = {
 			isa = PBXGroup;
 			children = (
-				9C66A83521633CE300AEC87C /* Constants */,
-				9C66A83621633D7700AEC87C /* Server */,
 				9CC742F3215752AB00132866 /* AppDelegate.h */,
 				9CC742F4215752AB00132866 /* AppDelegate.m */,
-				9CC742F6215752AB00132866 /* MainViewController.h */,
-				9CC742F7215752AB00132866 /* MainViewController.m */,
-				9C93496621696D090025996F /* CameraViewController.h */,
-				9C93496721696D090025996F /* CameraViewController.m */,
-				9CC742F9215752AB00132866 /* Main.storyboard */,
-				9C93495A21696AAB0025996F /* CaptureImage.storyboard */,
+				9CBA2F032188C01D000866B8 /* Helpers */,
+				9CBA2EFE2188BF9F000866B8 /* Controllers */,
+				9CBA2EFD2188BF72000866B8 /* Storyboards */,
 				9CC742FC215752AD00132866 /* Assets.xcassets */,
 				9C8082D62159B7520073EB4C /* hygiea-logo.png */,
-				9CC742FE215752AD00132866 /* LaunchScreen.storyboard */,
 				9CC74301215752AD00132866 /* Info.plist */,
+				9C434C20217E428300E0FD89 /* credentials.plist */,
 				9CC74302215752AD00132866 /* main.m */,
+				9C434C33217E485C00E0FD89 /* Google SignIn */,
 			);
 			path = "Waste Sorting";
 			sourceTree = "<group>";
@@ -242,6 +365,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9CC74300215752AD00132866 /* LaunchScreen.storyboard in Resources */,
+				9C434C21217E428400E0FD89 /* credentials.plist in Resources */,
+				9C434C29217E449400E0FD89 /* Login.storyboard in Resources */,
 				9CC742FD215752AD00132866 /* Assets.xcassets in Resources */,
 				9CC742FB215752AB00132866 /* Main.storyboard in Resources */,
 				9C8082D72159B7520073EB4C /* hygiea-logo.png in Resources */,
@@ -292,7 +417,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Waste Sorting/Pods-Waste Sorting-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/AWSLex/AWSLex.bundle,
+				"${PODS_ROOT}/GTMOAuth2/Source/Touch/GTMOAuth2ViewTouch.xib",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				$PODS_CONFIGURATION_BUILD_DIR/QBImagePickerController/QBImagePicker.bundle,
 			);
 			name = "[CP] Copy Pods Resources";
@@ -311,11 +437,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C434C2F217E459D00E0FD89 /* GoogleLoginManager.m in Sources */,
 				9CC742F8215752AB00132866 /* MainViewController.m in Sources */,
 				9CC74303215752AD00132866 /* main.m in Sources */,
+				9CBA2F172188CC76000866B8 /* BackgroundSessionManager.m in Sources */,
+				9CBA2F162188CC76000866B8 /* DefaultSessionManager.m in Sources */,
+				9C434C1F217ABA9300E0FD89 /* ProcessingViewController.m in Sources */,
 				9CC742F5215752AB00132866 /* AppDelegate.m in Sources */,
 				9C934976216995590025996F /* ServerCommunication.m in Sources */,
-				9C934979216995620025996F /* DefaultSessionManager.m in Sources */,
+				9C434C32217E47D600E0FD89 /* GIDGoogleUserInfo.m in Sources */,
+				9C434C2C217E452E00E0FD89 /* LoginViewController.m in Sources */,
 				9C93496821696D090025996F /* CameraViewController.m in Sources */,
 				9C66A83221633C4C00AEC87C /* Constants.m in Sources */,
 			);
@@ -328,6 +459,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				9CC742FA215752AB00132866 /* Base */,
+				9CDE0D3A2186688900FAA0F5 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

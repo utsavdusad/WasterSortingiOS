@@ -1,10 +1,15 @@
-#import "DefaultSessionManager.h"
-#import "AppDelegate.h"
-
-//  Created by Rhythm Sharma on 9/30/18.
+//
+//  BackgroundSessionManager.m
+//  Waste Sorting
+//
+//  Created by Rhythm Sharma  on 10/29/18.
 //  Copyright © 2018 Hygiea. All rights reserved.
+//
 
-@implementation DefaultSessionManager
+#import "BackgroundSessionManager.h"
+
+@implementation BackgroundSessionManager
+
 
 + (instancetype)sharedManager{
     static id sharedMyManager= nil;
@@ -20,12 +25,12 @@
 -(instancetype)init{
     
     //  Session configuration to be set once in init
-    NSURLSessionConfiguration *configuration=[NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSessionConfiguration *configuration=[NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:@"backgroundsessionID"];
     [configuration setURLCache:[NSURLCache sharedURLCache]];
-//    [configuration setRequestCachePolicy:NSURLRequestReturnCacheDataElseLoad];
-
+    
     self=[super initWithSessionConfiguration:configuration];
     return self;
 }
+
 
 @end

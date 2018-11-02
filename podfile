@@ -1,6 +1,8 @@
 target 'Waste Sorting'
 pod 'AFNetworking', '~> 3.0.0'
 pod 'QBImagePickerController'
+pod 'MZFormSheetPresentationController'
+pod 'GoogleSignIn'
 
 
 

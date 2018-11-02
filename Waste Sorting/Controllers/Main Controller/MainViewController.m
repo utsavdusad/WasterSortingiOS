@@ -10,6 +10,8 @@
 #import "QBImagePickerController.h"
 #import "ServerCommunication.h"
 #import "CameraViewController.h"
+#import "GoogleLoginManager.h"
+#import "LoginViewController.h"
 
 @interface MainViewController ()<QBImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (strong, nonatomic) PHAsset *asset;
@@ -20,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [self.navigationItem setHidesBackButton:YES animated:YES];
 }
 - (IBAction)uploadPhotoToServer:(id)sender {
     
@@ -126,9 +129,43 @@
 
 - (void)qb_imagePickerControllerDidCancel:(QBImagePickerController *)imagePickerController
 {
-  
-    
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
+- (IBAction)logout:(id)sender {
+
+    UIAlertController * alert = [UIAlertController
+                                 alertControllerWithTitle:@"Important"
+                                 message:@"Do you want to logout?"
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    //Add Buttons
+    
+    UIAlertAction* yesButton = [UIAlertAction
+                               actionWithTitle:@"Yes"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   //Handle your yes please button action here
+                                    [[GoogleLoginManager sharedLoginManager] tryLogout];
+                                   
+                               }];
+    
+    UIAlertAction* noButton = [UIAlertAction
+                                actionWithTitle:@"No"
+                                style:UIAlertActionStyleDefault
+                                handler:^(UIAlertAction * action) {
+                                    //Handle your yes please button action here
+                                    
+                                }];
+    
+    //Add your buttons to alert controller
+    
+    [alert addAction:yesButton];
+    [alert addAction:noButton];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+
 }
 
 @end

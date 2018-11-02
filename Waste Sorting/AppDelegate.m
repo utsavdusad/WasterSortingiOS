@@ -8,8 +8,12 @@
 
 #import "AppDelegate.h"
 #import "AFNetworkActivityIndicatorManager.h"
+#import "MainViewController.h"
+#import "Constants.h"
+#import "GoogleLoginManager.h"
+@import GoogleSignIn;
 
-@interface AppDelegate ()
+@interface AppDelegate () <UIApplicationDelegate>
 
 @end
 
@@ -19,11 +23,40 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [AFNetworkActivityIndicatorManager sharedManager].enabled =YES;
-     [AFNetworkActivityIndicatorManager sharedManager].activationDelay =0;
+    [AFNetworkActivityIndicatorManager sharedManager].activationDelay =0;
+    [GIDSignIn sharedInstance].clientID = CLIENT_ID;
+    
+    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle: nil];
+    MainViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"loginNavId"];
+    self.window.rootViewController = rootViewController;
+    
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
-
+-(BOOL)checkIfLoginKeyAvailable{
+    return true;
+    //    return  [[NSUserDefaults standardUserDefaults] boolForKey:@"hasCameraLoginKey"];
+    
+//    KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:kCameraAppIdentifier accessGroup:nil];
+//    //    [keychain setObject:email forKey:(id)kSecAttrService];
+//    NSString* username = [keychain objectForKey:(id)kSecAttrAccount];
+//    NSString* password = [keychain objectForKey:(id)kSecValueData];
+//
+//
+//    if(![password isEqualToString:@""]){
+//        return true;
+//    }else{
+//        return false;
+//    }
+    
+    
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
@@ -48,6 +81,18 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<NSString *, id> *)options {
+
+    
+    if ([GoogleLoginManager handleURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]]) {
+        return [GoogleLoginManager handleURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+    }
+    return YES;
 }
 
 
