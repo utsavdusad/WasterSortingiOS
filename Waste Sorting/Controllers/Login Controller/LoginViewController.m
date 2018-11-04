@@ -7,7 +7,6 @@
 //
 
 #import "LoginViewController.h"
-#import "MainViewController.h"
 #import "ServerCommunication.h"
 #import "CameraViewController.h"
 
@@ -72,13 +71,7 @@
                 //Show main window
                 
                 [self showCustomCamera];
-//                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-//                        MainViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"MainViewController"];
-//
-//
-//                [self.navigationController pushViewController:rootViewController animated:YES];
-            
-//                [window makeKeyAndVisible];
+
             }else{
                 //Alert Invalid credential
                 

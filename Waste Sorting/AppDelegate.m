@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AFNetworkActivityIndicatorManager.h"
-#import "MainViewController.h"
+#import "LoginViewController.h"
 #import "Constants.h"
 #import "GoogleLoginManager.h"
 @import GoogleSignIn;
@@ -31,7 +31,7 @@
     
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle: nil];
-    MainViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"loginNavId"];
+    LoginViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"loginNavId"];
     self.window.rootViewController = rootViewController;
     
     [self.window makeKeyAndVisible];
