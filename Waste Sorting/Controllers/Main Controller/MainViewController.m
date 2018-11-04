@@ -15,6 +15,7 @@
 
 @interface MainViewController ()<QBImagePickerControllerDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 @property (strong, nonatomic) PHAsset *asset;
+@property (strong, nonatomic) UIImage *image;
 @end
 
 @implementation MainViewController
@@ -28,7 +29,10 @@
     
     if(self.asset){
         
-        [[ServerCommunication   alloc] testUploadImage:self.asset];
+        [[ServerCommunication   alloc] testUploadAsset:self.asset];
+    }else if (self.image){
+        [[ServerCommunication   alloc] testUploadImage:self.image];
+       
     }
         
 }
@@ -54,14 +58,14 @@
 //    //    controller.hidesBottomBarWhenPushed=YES;
 //
 //    [self.navigationController showViewController:controller sender:nil];
+//    [self showCustomCamera];
     
-    
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = self;
-    picker.allowsEditing = YES;
-    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-    
-    [self presentViewController:picker animated:YES completion:NULL];
+//    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+//    picker.delegate = self;
+//    picker.allowsEditing = YES;
+//    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//
+//    [self presentViewController:picker animated:YES completion:NULL];
     
 }   
 
@@ -71,6 +75,7 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     dispatch_async(dispatch_get_main_queue(), ^{
         self.imageView.image = image;
+        self.image=image;
     });
     
 }
@@ -167,5 +172,27 @@
     [self presentViewController:alert animated:YES completion:nil];
 
 }
+
+
+
+//- (void)showCustomCamera
+//{
+//    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//        [self showNoCameraError];
+//        return;
+//    }
+//    
+//    CameraViewController *cameraViewController = [[CameraViewController alloc] init];
+//    [self presentViewController:cameraViewController animated:YES completion:nil];
+//}
+//
+//
+//- (void)showNoCameraError
+//{
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Your device doesn't have a camera" preferredStyle:UIAlertControllerStyleAlert];
+//    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+//    [self presentViewController:alertController animated:YES completion:nil];
+//}
+
 
 @end

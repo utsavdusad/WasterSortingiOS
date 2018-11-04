@@ -9,9 +9,10 @@
 #import "LoginViewController.h"
 #import "MainViewController.h"
 #import "ServerCommunication.h"
+#import "CameraViewController.h"
 
 
-@interface LoginViewController () <GoogleLoginManagerDelegate, GIDSignInUIDelegate>
+@interface LoginViewController () <GoogleLoginManagerDelegate, GIDSignInUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (weak, nonatomic)  UIButton *googleSignInBtn;
 
 @end
@@ -70,11 +71,12 @@
             if (isLoginSuccessfull){
                 //Show main window
                 
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                        MainViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"MainViewController"];
-
-                            
-                [self.navigationController pushViewController:rootViewController animated:YES];
+                [self showCustomCamera];
+//                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+//                        MainViewController *rootViewController = [storyboard instantiateViewControllerWithIdentifier:@"MainViewController"];
+//
+//
+//                [self.navigationController pushViewController:rootViewController animated:YES];
             
 //                [window makeKeyAndVisible];
             }else{
@@ -114,28 +116,28 @@
 }
 - (void)didLogout{
     NSLog(@"error");
-    UIAlertController * alert = [UIAlertController
-                                 alertControllerWithTitle:@"Important"
-                                 message:@"Login Not successful"
-                                 preferredStyle:UIAlertControllerStyleAlert];
-    
-    //Add Buttons
-    
-    UIAlertAction* okButton = [UIAlertAction
-                                actionWithTitle:@"ok"
-                                style:UIAlertActionStyleDefault
-                                handler:^(UIAlertAction * action) {
-                                    //Handle your yes please button action here
-                                  
-                                }];
-
-    
-    //Add your buttons to alert controller
-    
-    [alert addAction:okButton];
-
-    
-    [self presentViewController:alert animated:YES completion:nil];
+//    UIAlertController * alert = [UIAlertController
+//                                 alertControllerWithTitle:@"Important"
+//                                 message:@"Login Not successful"
+//                                 preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    //Add Buttons
+//    
+//    UIAlertAction* okButton = [UIAlertAction
+//                                actionWithTitle:@"ok"
+//                                style:UIAlertActionStyleDefault
+//                                handler:^(UIAlertAction * action) {
+//                                    //Handle your yes please button action here
+//                                  
+//                                }];
+//
+//    
+//    //Add your buttons to alert controller
+//    
+//    [alert addAction:okButton];
+//
+//    
+//    [self presentViewController:alert animated:YES completion:nil];
     
 }
 - (void)didDisconnect{
@@ -174,8 +176,60 @@
 
 
 
+- (void)showCamera {
+    
+
+    
+    
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+//    picker.showsCameraControls = NO;
+    picker.allowsEditing = NO;
+    picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    
+//    self.overlay = [[OverlayViewController alloc] initWithNibName:@"Overlay" bundle:nil];
+//    self.overlay.pickerReference = self.picker;
+//    
+//    self.picker.cameraOverlayView = self.overlay.view;
+//    self.picker.delegate = self.overlay;
+    
+    [self presentViewController:picker animated:YES completion:NULL];
+    
+}
+
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    //   UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        self.imageView.image = image;
+//        self.image=image;
+//    });
+    
+}
+-(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
 
 
 
+- (void)showCustomCamera
+{
+    if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [self showNoCameraError];
+        return;
+    }
+    
+    CameraViewController *cameraViewController = [[CameraViewController alloc] init];
+    [self presentViewController:cameraViewController animated:YES completion:nil];
+}
 
+
+- (void)showNoCameraError
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Your device doesn't have a camera" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 @end
