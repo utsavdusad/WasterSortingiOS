@@ -11,7 +11,7 @@
 #import "CameraViewController.h"
 
 
-@interface LoginViewController () <GoogleLoginManagerDelegate, GIDSignInUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface LoginViewController () <GoogleLoginManagerDelegate, GIDSignInUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FBSDKLoginButtonDelegate>
 @property (weak, nonatomic)  UIButton *googleSignInBtn;
 
 @end
@@ -21,17 +21,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    [GoogleLoginManager sharedLoginManager].delegate=self;
+    //    [GoogleLoginManager sharedLoginManager].delegate=self;
     [GIDSignIn sharedInstance].uiDelegate = self;
-   
-//    [[GIDSignIn sharedInstance] signInSilently];
     
- 
-//    [[[[GIDSignIn sharedInstance] currentUser] authentication] accessToken]
+    self.fbLoginButton.delegate=self;
+    //    [[GIDSignIn sharedInstance] signInSilently];
+    
+    
+    //    [[[[GIDSignIn sharedInstance] currentUser] authentication] accessToken]
     
     if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
         [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
-//        [[GIDSignIn sharedInstance] signInSilently];
+        //        [[GIDSignIn sharedInstance] signInSilently];
     }
     
 }
@@ -42,22 +43,22 @@
 }
 - (IBAction)signIn:(id)sender {
     //1
-      [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
+    [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 
 - (void)didLogin{
-
+    
     GIDGoogleUserInfo *user = [[GoogleLoginManager sharedLoginManager] loggedUser];
     NSString *fullName = user.user.profile.name;
     NSString *givenName = user.user.profile.givenName;
@@ -71,7 +72,7 @@
                 //Show main window
                 
                 [self showCustomCamera];
-
+                
             }else{
                 //Alert Invalid credential
                 
@@ -109,34 +110,34 @@
 }
 - (void)didLogout{
     NSLog(@"error");
-//    UIAlertController * alert = [UIAlertController
-//                                 alertControllerWithTitle:@"Important"
-//                                 message:@"Login Not successful"
-//                                 preferredStyle:UIAlertControllerStyleAlert];
-//    
-//    //Add Buttons
-//    
-//    UIAlertAction* okButton = [UIAlertAction
-//                                actionWithTitle:@"ok"
-//                                style:UIAlertActionStyleDefault
-//                                handler:^(UIAlertAction * action) {
-//                                    //Handle your yes please button action here
-//                                  
-//                                }];
-//
-//    
-//    //Add your buttons to alert controller
-//    
-//    [alert addAction:okButton];
-//
-//    
-//    [self presentViewController:alert animated:YES completion:nil];
+    //    UIAlertController * alert = [UIAlertController
+    //                                 alertControllerWithTitle:@"Important"
+    //                                 message:@"Login Not successful"
+    //                                 preferredStyle:UIAlertControllerStyleAlert];
+    //
+    //    //Add Buttons
+    //
+    //    UIAlertAction* okButton = [UIAlertAction
+    //                                actionWithTitle:@"ok"
+    //                                style:UIAlertActionStyleDefault
+    //                                handler:^(UIAlertAction * action) {
+    //                                    //Handle your yes please button action here
+    //
+    //                                }];
+    //
+    //
+    //    //Add your buttons to alert controller
+    //
+    //    [alert addAction:okButton];
+    //
+    //
+    //    [self presentViewController:alert animated:YES completion:nil];
     
 }
 - (void)didDisconnect{
-
+    
     [self.navigationController popToViewController:self animated:YES];
- 
+    
     
 }
 - (void)didFailWithError:(NSError*)error{
@@ -145,16 +146,16 @@
 }
 
 
--(void)authenticateUser:(NSString *)idToken withCompletionHandler:(void (^)(bool isLoginSuccessfull, NSString* error))completionHandler{
+-(void)authenticateUser:(NSString *)idToken withCompletionHandler:(void (^)(bool isLoginSuccessfull, NSString *error))completionHandler{
     
     [[ServerCommunication   alloc] signInWithCompletion:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (!error){
             completionHandler(true,nil);
         }else{
-          
-             completionHandler(true,[error localizedDescription]);
-        }
             
+            completionHandler(true,[error localizedDescription]);
+        }
+        
     }];
     
     
@@ -171,20 +172,20 @@
 
 - (void)showCamera {
     
-
+    
     
     
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
-//    picker.showsCameraControls = NO;
+    //    picker.showsCameraControls = NO;
     picker.allowsEditing = NO;
     picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     
-//    self.overlay = [[OverlayViewController alloc] initWithNibName:@"Overlay" bundle:nil];
-//    self.overlay.pickerReference = self.picker;
-//    
-//    self.picker.cameraOverlayView = self.overlay.view;
-//    self.picker.delegate = self.overlay;
+    //    self.overlay = [[OverlayViewController alloc] initWithNibName:@"Overlay" bundle:nil];
+    //    self.overlay.pickerReference = self.picker;
+    //
+    //    self.picker.cameraOverlayView = self.overlay.view;
+    //    self.picker.delegate = self.overlay;
     
     [self presentViewController:picker animated:YES completion:NULL];
     
@@ -195,10 +196,10 @@
     [self dismissViewControllerAnimated:YES completion:NULL];
     //   UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        self.imageView.image = image;
-//        self.image=image;
-//    });
+    //    dispatch_async(dispatch_get_main_queue(), ^{
+    //        self.imageView.image = image;
+    //        self.image=image;
+    //    });
     
 }
 -(void) imagePickerControllerDidCancel:(UIImagePickerController *)picker{
@@ -225,4 +226,21 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
 }
+- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
+    if(!error){
+        NSLog(@"You've Logged in");
+        NSLog(@"%@", result);
+        [self showCustomCamera];
+    } else {
+        NSLog(@"%@",error);
+    }
+}
+
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+    FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+    [loginManager logOut];
+}
+
+
+
 @end

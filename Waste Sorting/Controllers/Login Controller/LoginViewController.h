@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "GoogleLoginManager.h"
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
-@interface LoginViewController : UIViewController 
+@interface LoginViewController : UIViewController
+@property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbLoginButton;
 
 @end

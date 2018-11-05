@@ -4,7 +4,4 @@ pod 'QBImagePickerController'
 pod 'MZFormSheetPresentationController'
 pod 'GoogleSignIn'
 pod 'PureLayout'
-
-
-
-
+pod 'FBSDKLoginKit'

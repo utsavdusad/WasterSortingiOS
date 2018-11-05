@@ -11,6 +11,9 @@
 #import "LoginViewController.h"
 #import "Constants.h"
 #import "GoogleLoginManager.h"
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 @import GoogleSignIn;
 
 @interface AppDelegate () <UIApplicationDelegate>
@@ -25,6 +28,8 @@
     [AFNetworkActivityIndicatorManager sharedManager].enabled =YES;
     [AFNetworkActivityIndicatorManager sharedManager].activationDelay =0;
     [GIDSignIn sharedInstance].clientID = CLIENT_ID;
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
     
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
@@ -43,17 +48,17 @@
     return true;
     //    return  [[NSUserDefaults standardUserDefaults] boolForKey:@"hasCameraLoginKey"];
     
-//    KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:kCameraAppIdentifier accessGroup:nil];
-//    //    [keychain setObject:email forKey:(id)kSecAttrService];
-//    NSString* username = [keychain objectForKey:(id)kSecAttrAccount];
-//    NSString* password = [keychain objectForKey:(id)kSecValueData];
-//
-//
-//    if(![password isEqualToString:@""]){
-//        return true;
-//    }else{
-//        return false;
-//    }
+    //    KeychainItemWrapper* keychain = [[KeychainItemWrapper alloc] initWithIdentifier:kCameraAppIdentifier accessGroup:nil];
+    //    //    [keychain setObject:email forKey:(id)kSecAttrService];
+    //    NSString* username = [keychain objectForKey:(id)kSecAttrAccount];
+    //    NSString* password = [keychain objectForKey:(id)kSecValueData];
+    //
+    //
+    //    if(![password isEqualToString:@""]){
+    //        return true;
+    //    }else{
+    //        return false;
+    //    }
     
     
 }
@@ -87,10 +92,21 @@
 - (BOOL)application:(UIApplication *)app
             openURL:(NSURL *)url
             options:(NSDictionary<NSString *, id> *)options {
-
+    
     
     if ([GoogleLoginManager handleURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]]) {
         return [GoogleLoginManager handleURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+    }else if([[FBSDKApplicationDelegate sharedInstance] application:app
+                                                            openURL:url
+                                                  sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                         annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+              ]) {
+        return [[FBSDKApplicationDelegate sharedInstance] application:app
+                                                              openURL:url
+                                                    sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+                                                           annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+                ];
+        
     }
     return YES;
 }
