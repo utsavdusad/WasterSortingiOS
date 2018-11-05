@@ -1,3 +1,4 @@
+//Source: https://github.com/brightec/CustomCamera_Objc
 //
 //  JPSCameraButton.h
 //  JPSImagePickerController

@@ -14,19 +14,19 @@
 @implementation ServerCommunication{}
 
 
-
-//Inputs: 1. PHAsset
-//Outputs: returns the file name for the PHasset.
--(NSString *) getFileNameForAsset:(PHAsset *)asset {
-        //If a new file then add a random string to the caption otherwise return the file name form the file list object.
-        NSArray *resources = [PHAssetResource assetResourcesForAsset:asset];
-        NSString *orgFilename = ((PHAssetResource*)resources[0]).originalFilename;
-        NSString *fileWithoutExtension=[orgFilename stringByDeletingPathExtension];
-        NSString *fileExtension=[orgFilename pathExtension];
-        return [[fileWithoutExtension stringByAppendingString:[NSString stringWithFormat:@"_%ld",(long)[self randomNumberGenerator]] ]stringByAppendingPathExtension:fileExtension];
-    
-}
-//It geneates random 8 digit number.
+//
+////Inputs: 1. PHAsset
+////Outputs: returns the file name for the PHasset.
+//-(NSString *) getFileNameForAsset:(PHAsset *)asset {
+//        //If a new file then add a random string to the caption otherwise return the file name form the file list object.
+//        NSArray *resources = [PHAssetResource assetResourcesForAsset:asset];
+//        NSString *orgFilename = ((PHAssetResource*)resources[0]).originalFilename;
+//        NSString *fileWithoutExtension=[orgFilename stringByDeletingPathExtension];
+//        NSString *fileExtension=[orgFilename pathExtension];
+//        return [[fileWithoutExtension stringByAppendingString:[NSString stringWithFormat:@"_%ld",(long)[self randomNumberGenerator]] ]stringByAppendingPathExtension:fileExtension];
+//
+//}
+////It geneates random 8 digit number.
 -(NSInteger)randomNumberGenerator{
     
     return arc4random_uniform(100000000) -1 ;
@@ -209,11 +209,7 @@
     [window.rootViewController presentViewController:formSheetController animated:YES completion:nil];
 }
 
--(void)dismissProcessingView:(ProcessingViewController *)pvc{
-    
-    
-}
-
+// This method does signIn call
 -(void) signInWithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
     NSURL *theURL = [NSURL URLWithString:SIGN_IN_PATH];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
