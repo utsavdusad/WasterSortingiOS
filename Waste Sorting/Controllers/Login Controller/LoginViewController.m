@@ -11,8 +11,7 @@
 #import "CameraViewController.h"
 
 
-@interface LoginViewController () <GoogleLoginManagerDelegate, GIDSignInUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FBSDKLoginButtonDelegate>
-@property (weak, nonatomic)  UIButton *googleSignInBtn;
+@interface LoginViewController () <GoogleLoginManagerDelegate, GIDSignInUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
@@ -24,16 +23,19 @@
     //    [GoogleLoginManager sharedLoginManager].delegate=self;
     [GIDSignIn sharedInstance].uiDelegate = self;
     
-    self.fbLoginButton.delegate=self;
+    
     //    [[GIDSignIn sharedInstance] signInSilently];
     
     
     //    [[[[GIDSignIn sharedInstance] currentUser] authentication] accessToken]
     
-    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
-        [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
-        //        [[GIDSignIn sharedInstance] signInSilently];
-    }
+    [[GoogleLoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
+//    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
+//        [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
+//        //        [[GIDSignIn sharedInstance] signInSilently];
+//    }else if ([FBSDKAccessToken currentAccessToken]){
+//        [self showCustomCamera];
+//    }
     
 }
 
@@ -43,7 +45,12 @@
 }
 - (IBAction)signIn:(id)sender {
     //1
-    [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
+//    [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
+        [[GoogleLoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
+}
+- (IBAction)fbLogin:(id)sender {
+    
+    [[GoogleLoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
 }
 
 /*
@@ -59,53 +66,65 @@
 
 - (void)didLogin{
     
-    GIDGoogleUserInfo *user = [[GoogleLoginManager sharedLoginManager] loggedUser];
-    NSString *fullName = user.user.profile.name;
-    NSString *givenName = user.user.profile.givenName;
-    NSString *familyName = user.user.profile.familyName;
-    NSString *email = @"utsavdusad@gmail.com";//user.profile.email;
+    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
+        
+        
+        GIDGoogleUserInfo *user = [[GoogleLoginManager sharedLoginManager] loggedUser];
+        NSString *fullName = user.user.profile.name;
+        NSString *givenName = user.user.profile.givenName;
+        NSString *familyName = user.user.profile.familyName;
+        NSString *email = @"utsavdusad@gmail.com";//user.profile.email;
+        
+        NSString *idToken=user.user.authentication.idToken;
+        if(idToken)
+            [self authenticateUser:idToken withCompletionHandler:^(bool isLoginSuccessfull, NSString *error    ) {
+                if (isLoginSuccessfull){
+                    //Show main window
+                    
+                    [self showCustomCamera];
+                    
+                }else{
+                    //Alert Invalid credential
+                    
+                    UIAlertController * alert = [UIAlertController
+                                                 alertControllerWithTitle:@"SignIn Failed"
+                                                 message:error
+                                                 preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    //Add Buttons
+                    
+                    UIAlertAction* okButton = [UIAlertAction
+                                               actionWithTitle:@"ok"
+                                               style:UIAlertActionStyleDefault
+                                               handler:^(UIAlertAction * action) {
+                                                   //Handle your yes please button action here
+                                                   
+                                               }];
+                    
+                    
+                    //Add your buttons to alert controller
+                    
+                    [alert addAction:okButton];
+                    
+                    
+                    [self presentViewController:alert animated:YES completion:nil];
+                    
+                    
+                    
+                }
+                
+            }];
+        
+        NSLog(@"error");
+       
+        
+    }else if ([FBSDKAccessToken currentAccessToken]){
+        
+           [self showCustomCamera];
+        
+    }
     
-    NSString *idToken=user.user.authentication.idToken;
-    if(idToken)
-        [self authenticateUser:idToken withCompletionHandler:^(bool isLoginSuccessfull, NSString *error    ) {
-            if (isLoginSuccessfull){
-                //Show main window
-                
-                [self showCustomCamera];
-                
-            }else{
-                //Alert Invalid credential
-                
-                UIAlertController * alert = [UIAlertController
-                                             alertControllerWithTitle:@"SignIn Failed"
-                                             message:error
-                                             preferredStyle:UIAlertControllerStyleAlert];
-                
-                //Add Buttons
-                
-                UIAlertAction* okButton = [UIAlertAction
-                                           actionWithTitle:@"ok"
-                                           style:UIAlertActionStyleDefault
-                                           handler:^(UIAlertAction * action) {
-                                               //Handle your yes please button action here
-                                               
-                                           }];
-                
-                
-                //Add your buttons to alert controller
-                
-                [alert addAction:okButton];
-                
-                
-                [self presentViewController:alert animated:YES completion:nil];
-                
-                
-                
-            }
-            
-        }];
     
-    NSLog(@"error");
     
 }
 - (void)didLogout{
@@ -136,7 +155,11 @@
 }
 - (void)didDisconnect{
     
-    [self.navigationController popToViewController:self animated:YES];
+//    [self.navigationController popToViewController:self animated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }];
+    
     
     
 }
@@ -216,7 +239,13 @@
     }
     
     CameraViewController *cameraViewController = [[CameraViewController alloc] init];
-    [self presentViewController:cameraViewController animated:YES completion:nil];
+    NSLog(@"%@",[self.navigationController viewControllers]);
+    
+    [self.navigationController pushViewController:cameraViewController animated:YES];
+    
+//    [self.navigationController presentViewController:cameraViewController animated:YES completion:^{
+//        NSLog(@"%@",[self.navigationController viewControllers]);
+//    }];
 }
 
 
@@ -226,21 +255,6 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
     [self presentViewController:alertController animated:YES completion:nil];
 }
-- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
-    if(!error){
-        NSLog(@"You've Logged in");
-        NSLog(@"%@", result);
-        [self showCustomCamera];
-    } else {
-        NSLog(@"%@",error);
-    }
-}
-
-- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
-    FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
-    [loginManager logOut];
-}
-
 
 
 @end

@@ -13,6 +13,8 @@
 #import <PureLayout/PureLayout.h>
 #import <objc/runtime.h>
 #import "ServerCommunication.h"
+#import "MZFormSheetPresentationViewController.h"
+#import "UserDetailsViewController.h"
 
 static char imageKey;
 
@@ -53,6 +55,8 @@ static char imageKey;
 {
     [super viewDidLoad];
     
+    self.navigationController.toolbar.hidden=TRUE;
+    self.navigationController.navigationBar.hidden=TRUE;
     // Default to the flash mode buttons being hidden
     self.flashModeContainerView.alpha = 0.0f;
     
@@ -639,5 +643,41 @@ static char imageKey;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)showUserInfo:(id)sender {
+      [[MZFormSheetPresentationController appearance] setBackgroundColor:[[UIColor darkGrayColor] colorWithAlphaComponent:0.3]];
+     
+    UserDetailsViewController *userDetailsiewController = [[UserDetailsViewController alloc] init];
+    
+    
+    MZFormSheetPresentationViewController *formSheetController = [[MZFormSheetPresentationViewController alloc] initWithContentViewController:userDetailsiewController];
+
+    formSheetController.view.layer.cornerRadius = 25;
+    
+    formSheetController.view.layer.masksToBounds = YES;
+
+    formSheetController.presentationController.contentViewSize = CGSizeMake(self.view.frame.size.width*0.50, self.view.frame.size.height*0.40);
+
+    
+    
+    formSheetController.interactivePanGestureDismissalDirection = MZFormSheetPanGestureDismissDirectionAll;
+    formSheetController.contentViewControllerTransitionStyle = MZFormSheetPresentationTransitionStyleSlideAndBounceFromTop;
+    
+   
+
+    formSheetController.presentationController.shouldCenterVertically = YES;
+    NSLog(@"%@",self.navigationController);
+     NSLog(@"%@",[self.navigationController viewControllers]);
+    
+    
+    
+    
+//     [self.navigationController pushViewController:userDetailsiewController animated:YES];
+    [self presentViewController:formSheetController animated:YES completion:nil];
+
+    
+//    [self.navigationController presentViewController:formSheetController animated:YES completion:nil];
+
+    
+}
 
 @end
