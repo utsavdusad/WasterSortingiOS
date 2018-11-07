@@ -12,6 +12,7 @@
 
 
 
+
 @implementation GoogleLoginManager
 
 
@@ -34,30 +35,58 @@ static GoogleLoginManager *_sharedLoginManager = nil;
 
 
 
-- (void)tryLoginWith:(id<GoogleLoginManagerDelegate>)delegate {
-    
-    NSLog(@"I M THE BEST");
-    self.delegate = delegate;
-////
-//    NSError* configureError;
-//    [[GGLContext sharedInstance] configureWithError: &configureError];
-//    if (configureError != nil) {
-//        NSLog(@"Error configuring the Google context: %@", configureError);
-//    }
+//- (void)tryLoginWith:(id<GoogleLoginManagerDelegate>)delegate {
+//    
 //
-//    [GIDSignIn sharedInstance].uiDelegate = self;
-    [GIDSignIn sharedInstance].delegate = self;
-//    [GIDSignIn sharedInstance].scopes = @[@"https://www.googleapis.com/auth/plus.me",@"https://www.googleapis.com/auth/plus.stream.read"];
-//    [[GIDSignIn sharedInstance] signIn];
+//    self.delegate = delegate;
+//////
+////    NSError* configureError;
+////    [[GGLContext sharedInstance] configureWithError: &configureError];
+////    if (configureError != nil) {
+////        NSLog(@"Error configuring the Google context: %@", configureError);
+////    }
+////
+////    [GIDSignIn sharedInstance].uiDelegate = self;
+//    [GIDSignIn sharedInstance].delegate = self;
+////    [GIDSignIn sharedInstance].scopes = @[@"https://www.googleapis.com/auth/plus.me",@"https://www.googleapis.com/auth/plus.stream.read"];
+////    [[GIDSignIn sharedInstance] signIn];
+//
+////    //    [[UIApplication sharedApplication] keyWindow] setYser
+//    
+//    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
+//  
+//            [[GIDSignIn sharedInstance] signInSilently];
+//    }
+//}
+//
 
-//    //    [[UIApplication sharedApplication] keyWindow] setYser
+- (void)tryLoginWithDelegateAndSetDelegates:(id<GoogleLoginManagerDelegate>)delegate forButton:(FBSDKLoginButton *)btn{
     
+    
+    self.delegate = delegate;
+
+    btn.delegate = self;
+    [GIDSignIn sharedInstance].delegate = self;
+    //    [GIDSignIn sharedInstance].scopes = @[@"https://www.googleapis.com/auth/plus.me",@"https://www.googleapis.com/auth/plus.stream.read"];
+    //    [[GIDSignIn sharedInstance] signIn];
+    
+    //    //    [[UIApplication sharedApplication] keyWindow] setYser
+    
+//    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
+//        
+//    
+//    }
     if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
-  
-            [[GIDSignIn sharedInstance] signInSilently];
+        
+        [[GIDSignIn sharedInstance] signInSilently];
+        
+    }else if([FBSDKAccessToken currentAccessToken]){
+        
+        [self.delegate didLogin];
     }
 }
 - (void)tryLogout{
+    
     [[GIDSignIn sharedInstance] disconnect];
 }
 
@@ -106,14 +135,12 @@ static GoogleLoginManager *_sharedLoginManager = nil;
                     }
                 } else {
                     NSString *picture = userData[@"picture"];
-                    NSString *gender = userData[@"gender"];
-                    NSString *locale = userData[@"locale"];
+                    NSString *name = userData[@"name"];
                     
                     GIDGoogleUserInfo *infoUser = [[GIDGoogleUserInfo alloc] init];
                     infoUser.user = user;
-                    infoUser.locale = locale;
                     infoUser.picture = picture;
-                    infoUser.gender = gender;
+                    infoUser.name = name;
                     [[GoogleLoginManager sharedLoginManager] setLoggedUser:infoUser];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (self.delegate && [self.delegate respondsToSelector:@selector(didLogin)]) {
@@ -142,7 +169,11 @@ static GoogleLoginManager *_sharedLoginManager = nil;
     
     }
 }
-
+-(void)fbLogout{
+    FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+    [loginManager logOut];
+    [self.delegate didDisconnect];
+}
 #pragma mark -
 #pragma mark GIDSignInUIDelegate
 #pragma mark -
@@ -166,6 +197,44 @@ static GoogleLoginManager *_sharedLoginManager = nil;
     UIViewController *vc = (UIViewController*)self.delegate;
     [vc dismissViewControllerAnimated:YES completion:nil];
 }
+
+
+
+- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
+    if (!error){
+        
+        
+        [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{ @"fields" : @"id,name,picture.width(100).height(100)"}] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+             
+             if (!error) {
+                 NSLog(@"fetched user:%@  and Email : %@", result,result[@"email"]);
+             }
+             NSString *picture = [[result[@"picture"] valueForKey:@"data"] valueForKey:@"url"];
+             NSString *name = result[@"name"];
+             
+             GIDGoogleUserInfo *infoUser = [[GIDGoogleUserInfo alloc] init];
+             infoUser.user = result;
+             infoUser.picture = picture;
+             infoUser.name = name;
+             [[GoogleLoginManager sharedLoginManager] setLoggedUser:infoUser];
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 if (self.delegate && [self.delegate respondsToSelector:@selector(didLogin)]) {
+                     [self.delegate didLogin];
+                 }
+             });
+             
+             
+         }];
+    }
+    
+    
+}
+
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+    FBSDKLoginManager *loginManager = [[FBSDKLoginManager alloc] init];
+    [loginManager logOut];
+}
+
 
 
 @end

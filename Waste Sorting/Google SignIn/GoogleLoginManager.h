@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "AppDelegate.h"
 #import "GIDGoogleUserInfo.h"
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+
 @import GoogleSignIn;
 
 @protocol GoogleLoginManagerDelegate <NSObject>
@@ -20,13 +23,15 @@
 @end
 
 
-@interface GoogleLoginManager : NSObject<GIDSignInUIDelegate, GIDSignInDelegate>
+@interface GoogleLoginManager : NSObject<GIDSignInUIDelegate, GIDSignInDelegate, FBSDKLoginButtonDelegate>
 @property (nonatomic, assign) id<GoogleLoginManagerDelegate> delegate;
 @property (nonatomic, strong) GIDGoogleUserInfo *loggedUser;
 + (instancetype)sharedLoginManager;
 + (BOOL)handleURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 
-- (void)tryLoginWith:(id<GoogleLoginManagerDelegate>)delegate;
+
+- (void)tryLoginWithDelegateAndSetDelegates:(id<GoogleLoginManagerDelegate>)delegate forButton:(FBSDKLoginButton *)btn;
 - (void)tryLogout;
+-(void)fbLogout;
 
 @end
