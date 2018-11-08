@@ -31,13 +31,15 @@
     
     self.imageview.layer.masksToBounds = YES;
     // Do any additional setup after loading the view.
-    GIDGoogleUserInfo  *user=[[GoogleLoginManager sharedLoginManager] loggedUser];
+//    GIDGoogleUserInfo  *user=[[GoogleLoginManager sharedLoginManager] loggedUser];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        if(user)
-            self.Username.text=user.name;
+        self.Username.text=[defaults objectForKey:@"name"];
     });
     dispatch_async(dispatch_get_global_queue(0,0), ^{
-        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:user.picture]];
+        NSData * data = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString:[defaults objectForKey:@"picture"]]];
         if ( data == nil )
             return;
         dispatch_async(dispatch_get_main_queue(), ^{

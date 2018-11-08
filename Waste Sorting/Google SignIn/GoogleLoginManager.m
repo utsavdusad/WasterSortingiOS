@@ -141,6 +141,10 @@ static GoogleLoginManager *_sharedLoginManager = nil;
                     infoUser.user = user;
                     infoUser.picture = picture;
                     infoUser.name = name;
+                    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults setObject:picture forKey:@"picture"];
+                    [defaults setObject:name forKey:@"name"];
+                    [defaults synchronize];
                     [[GoogleLoginManager sharedLoginManager] setLoggedUser:infoUser];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (self.delegate && [self.delegate respondsToSelector:@selector(didLogin)]) {
@@ -216,6 +220,11 @@ static GoogleLoginManager *_sharedLoginManager = nil;
              infoUser.user = result;
              infoUser.picture = picture;
              infoUser.name = name;
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:picture forKey:@"picture"];
+            [defaults setObject:name forKey:@"name"];
+            [defaults synchronize];
+            
              [[GoogleLoginManager sharedLoginManager] setLoggedUser:infoUser];
              dispatch_async(dispatch_get_main_queue(), ^{
                  if (self.delegate && [self.delegate respondsToSelector:@selector(didLogin)]) {

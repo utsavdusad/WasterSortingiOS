@@ -79,7 +79,7 @@
     
     // setting the HTTP method
     [request setHTTPMethod:@"POST"];
-    NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
+   
     
     
     // we want a JSON response
@@ -104,8 +104,19 @@
     } error:nil];
     
     multipartRequest.timeoutInterval = 1000 * 60.0;
-    [multipartRequest setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
-    [multipartRequest setValue:token forHTTPHeaderField:@"token"];
+   
+    
+    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
+         NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
+        [multipartRequest setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
+        [multipartRequest setValue:token forHTTPHeaderField:@"token"];
+        
+    }else if([FBSDKAccessToken currentAccessToken]){
+        NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken]];
+        [multipartRequest setValue:[NSString stringWithFormat:@"facebook"] forHTTPHeaderField:SSO_TYPE];
+        [multipartRequest setValue:token forHTTPHeaderField:@"token"];
+    }
+    
     
     // Dump multipart request into the temporary file.
     [[AFHTTPRequestSerializer serializer]
@@ -213,10 +224,20 @@
 -(void) signInWithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
     NSURL *theURL = [NSURL URLWithString:SIGN_IN_PATH];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
-     NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
+//     NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
     [request setHTTPMethod:@"POST"];
-    [request setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
-    [request setValue:token forHTTPHeaderField:@"token"];
+    
+    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
+        NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
+        [request setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
+        [request setValue:token forHTTPHeaderField:@"token"];
+        
+    }else if([FBSDKAccessToken currentAccessToken]){
+        NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken]];
+        [request setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
+        [request setValue:token forHTTPHeaderField:@"token"];
+    }
+    
     
     NSURLSessionDataTask *task=[[DefaultSessionManager sharedManager] dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         completionHandler(response,responseObject,error);

@@ -66,64 +66,67 @@
 
 - (void)didLogin{
     
-    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
-        
-        
-        GIDGoogleUserInfo *user = [[GoogleLoginManager sharedLoginManager] loggedUser];
-        NSString *fullName = user.user.profile.name;
-        NSString *givenName = user.user.profile.givenName;
-        NSString *familyName = user.user.profile.familyName;
-        NSString *email = @"utsavdusad@gmail.com";//user.profile.email;
-        
-        NSString *idToken=user.user.authentication.idToken;
-        if(idToken)
-            [self authenticateUser:idToken withCompletionHandler:^(bool isLoginSuccessfull, NSString *error    ) {
-                if (isLoginSuccessfull){
-                    //Show main window
-                    
-                    [self showCustomCamera];
-                    
-                }else{
-                    //Alert Invalid credential
-                    
-                    UIAlertController * alert = [UIAlertController
-                                                 alertControllerWithTitle:@"SignIn Failed"
-                                                 message:error
-                                                 preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    //Add Buttons
-                    
-                    UIAlertAction* okButton = [UIAlertAction
-                                               actionWithTitle:@"ok"
-                                               style:UIAlertActionStyleDefault
-                                               handler:^(UIAlertAction * action) {
-                                                   //Handle your yes please button action here
-                                                   
-                                               }];
-                    
-                    
-                    //Add your buttons to alert controller
-                    
-                    [alert addAction:okButton];
-                    
-                    
-                    [self presentViewController:alert animated:YES completion:nil];
-                    
-                    
-                    
-                }
-                
-            }];
-        
-        NSLog(@"error");
-       
-        
-    }else if ([FBSDKAccessToken currentAccessToken]){
-        
-           [self showCustomCamera];
-        
-    }
     
+    [self authenticateUserWithCompletionHandler:^(bool isLoginSuccessfull, NSString *error    ) {
+        if (isLoginSuccessfull){
+            //Show main window
+            
+            [self showCustomCamera];
+            
+        }else{
+            //Alert Invalid credential
+            
+            UIAlertController * alert = [UIAlertController
+                                         alertControllerWithTitle:@"SignIn Failed"
+                                         message:error
+                                         preferredStyle:UIAlertControllerStyleAlert];
+            
+            //Add Buttons
+            
+            UIAlertAction* okButton = [UIAlertAction
+                                       actionWithTitle:@"ok"
+                                       style:UIAlertActionStyleDefault
+                                       handler:^(UIAlertAction * action) {
+                                           //Handle your yes please button action here
+                                           
+                                       }];
+            
+            
+            //Add your buttons to alert controller
+            
+            [alert addAction:okButton];
+            
+            
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            
+            
+        }
+        
+    }];
+//
+//    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
+//
+//
+//        GIDGoogleUserInfo *user = [[GoogleLoginManager sharedLoginManager] loggedUser];
+//        NSString *fullName = user.user.profile.name;
+//        NSString *givenName = user.user.profile.givenName;
+//        NSString *familyName = user.user.profile.familyName;
+//        NSString *email = @"utsavdusad@gmail.com";//user.profile.email;
+//
+//        NSString *idToken=user.user.authentication.idToken;
+//        if(idToken)
+//
+//
+//        NSLog(@"error");
+//
+//
+//    }else if ([FBSDKAccessToken currentAccessToken]){
+//
+//           [self showCustomCamera];
+//
+//    }
+//
     
     
 }
@@ -169,7 +172,7 @@
 }
 
 
--(void)authenticateUser:(NSString *)idToken withCompletionHandler:(void (^)(bool isLoginSuccessfull, NSString *error))completionHandler{
+-(void)authenticateUserWithCompletionHandler:(void (^)(bool isLoginSuccessfull, NSString *error))completionHandler{
     
     [[ServerCommunication   alloc] signInWithCompletion:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (!error){
