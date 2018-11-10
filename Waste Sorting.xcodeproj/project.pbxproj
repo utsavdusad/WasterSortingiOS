@@ -16,6 +16,8 @@
 		9C434C2C217E452E00E0FD89 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C2B217E452E00E0FD89 /* LoginViewController.m */; };
 		9C434C2F217E459D00E0FD89 /* GoogleLoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C2E217E459D00E0FD89 /* GoogleLoginManager.m */; };
 		9C434C32217E47D600E0FD89 /* GIDGoogleUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C31217E47D600E0FD89 /* GIDGoogleUserInfo.m */; };
+		9C64AA6E21975C33009BE7BF /* TrackUserLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C64AA6D21975C32009BE7BF /* TrackUserLocation.m */; };
+		9C64AA7021975F3C009BE7BF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C64AA6F21975F3C009BE7BF /* CoreLocation.framework */; };
 		9C66A83221633C4C00AEC87C /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C66A82D21633C4B00AEC87C /* Constants.m */; };
 		9C68299B2192013700D10FED /* UserDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C68299A2192013700D10FED /* UserDetailsViewController.xib */; };
 		9C68299E2192021700D10FED /* UserDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C68299D2192021700D10FED /* UserDetailsViewController.m */; };
@@ -54,6 +56,9 @@
 		9C434C2E217E459D00E0FD89 /* GoogleLoginManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleLoginManager.m; sourceTree = "<group>"; };
 		9C434C30217E47D600E0FD89 /* GIDGoogleUserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GIDGoogleUserInfo.h; sourceTree = "<group>"; };
 		9C434C31217E47D600E0FD89 /* GIDGoogleUserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GIDGoogleUserInfo.m; sourceTree = "<group>"; };
+		9C64AA6C21975C32009BE7BF /* TrackUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackUserLocation.h; sourceTree = "<group>"; };
+		9C64AA6D21975C32009BE7BF /* TrackUserLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackUserLocation.m; sourceTree = "<group>"; };
+		9C64AA6F21975F3C009BE7BF /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		9C66A82D21633C4B00AEC87C /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		9C66A83121633C4C00AEC87C /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		9C68299A2192013700D10FED /* UserDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserDetailsViewController.xib; sourceTree = "<group>"; };
@@ -94,6 +99,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C64AA7021975F3C009BE7BF /* CoreLocation.framework in Frameworks */,
 				9C434C27217E430C00E0FD89 /* SystemConfiguration.framework in Frameworks */,
 				9C434C25217E430500E0FD89 /* SafariServices.framework in Frameworks */,
 				9C434C23217E42FB00E0FD89 /* LocalAuthentication.framework in Frameworks */,
@@ -107,6 +113,7 @@
 		6584AABC5D29A8CEC1DD28BA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9C64AA6F21975F3C009BE7BF /* CoreLocation.framework */,
 				9C434C26217E430B00E0FD89 /* SystemConfiguration.framework */,
 				9C434C24217E430500E0FD89 /* SafariServices.framework */,
 				9C434C22217E42FB00E0FD89 /* LocalAuthentication.framework */,
@@ -124,6 +131,15 @@
 				9C434C31217E47D600E0FD89 /* GIDGoogleUserInfo.m */,
 			);
 			path = "Google SignIn";
+			sourceTree = "<group>";
+		};
+		9C64AA6B21975C1C009BE7BF /* User Location */ = {
+			isa = PBXGroup;
+			children = (
+				9C64AA6C21975C32009BE7BF /* TrackUserLocation.h */,
+				9C64AA6D21975C32009BE7BF /* TrackUserLocation.m */,
+			);
+			path = "User Location";
 			sourceTree = "<group>";
 		};
 		9C66A83521633CE300AEC87C /* Constants */ = {
@@ -191,11 +207,11 @@
 				9C68299C2192021700D10FED /* UserDetailsViewController.h */,
 				9C68299D2192021700D10FED /* UserDetailsViewController.m */,
 				9C68299A2192013700D10FED /* UserDetailsViewController.xib */,
-				9CCB0306218E09AD007CB639 /* CameraViewController.xib */,
 				9CCB0305218E0954007CB639 /* Views */,
 				9CCB02DE218E08F3007CB639 /* Categories */,
 				9C93496621696D090025996F /* CameraViewController.h */,
 				9C93496721696D090025996F /* CameraViewController.m */,
+				9CCB0306218E09AD007CB639 /* CameraViewController.xib */,
 			);
 			path = "Camera Controller";
 			sourceTree = "<group>";
@@ -203,6 +219,7 @@
 		9CBA2F032188C01D000866B8 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				9C64AA6B21975C1C009BE7BF /* User Location */,
 				9C66A83521633CE300AEC87C /* Constants */,
 				9C66A83621633D7700AEC87C /* Server */,
 			);
@@ -491,6 +508,7 @@
 				9CCB030B218E09D3007CB639 /* ImageViewerViewController.m in Sources */,
 				9C934976216995590025996F /* ServerCommunication.m in Sources */,
 				9C434C32217E47D600E0FD89 /* GIDGoogleUserInfo.m in Sources */,
+				9C64AA6E21975C33009BE7BF /* TrackUserLocation.m in Sources */,
 				9C434C2C217E452E00E0FD89 /* LoginViewController.m in Sources */,
 				9C93496821696D090025996F /* CameraViewController.m in Sources */,
 				9C68299E2192021700D10FED /* UserDetailsViewController.m in Sources */,

@@ -15,10 +15,13 @@
 #import "ServerCommunication.h"
 #import "MZFormSheetPresentationViewController.h"
 #import "UserDetailsViewController.h"
+#import "TrackUserLocation.h"
+
 
 static char imageKey;
 
 @interface CameraViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate, AVCapturePhotoCaptureDelegate>
+@property (strong,nonatomic) TrackUserLocation *trackLocation;
 @property (weak, nonatomic) IBOutlet UIView *topBarView;
 @property (weak, nonatomic) IBOutlet UIView *bottomBarView;
 @property (weak, nonatomic) IBOutlet UIView *cameraContainerView;
@@ -54,6 +57,7 @@ static char imageKey;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _trackLocation=[[TrackUserLocation alloc]init];
     
     self.navigationController.toolbar.hidden=TRUE;
     self.navigationController.navigationBar.hidden=TRUE;
@@ -489,7 +493,7 @@ static char imageKey;
     viewController.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelBarButtonWasTouched:)];
     
     
-    
+//    viewController.location=_trackLocation.location.location;
     
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self presentViewController:navController animated:YES completion:nil];
@@ -612,7 +616,7 @@ static char imageKey;
     
     UIImage *image = objc_getAssociatedObject(sender, &imageKey); //using button and key
     if (image){
-        [[ServerCommunication alloc] testUploadImage:image WithCompletion:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        [[ServerCommunication alloc] testUploadImage:image atLocation:_trackLocation.location.location WithCompletion:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
             
              [self dismissViewControllerAnimated:YES completion:nil];
             

@@ -81,7 +81,8 @@ static GoogleLoginManager *_sharedLoginManager = nil;
         [[GIDSignIn sharedInstance] signInSilently];
         
     }else if([FBSDKAccessToken currentAccessToken]){
-        
+        NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken].tokenString];
+//        NSLog(@"%@",[FBSDKAccessToken currentAccessToken].);
         [self.delegate didLogin];
     }
 }

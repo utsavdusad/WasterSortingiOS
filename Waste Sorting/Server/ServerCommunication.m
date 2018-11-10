@@ -73,126 +73,129 @@
     return [UIImage imageWithData:imageData];
 }
 
--(void) uploadImage:(UIImage *)image withImageName:(NSString *)imageName withCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
-    NSURL *theURL = [NSURL URLWithString:SERVER_PATH];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
-    
-    // setting the HTTP method
-    [request setHTTPMethod:@"POST"];
-   
-    
-    
-    // we want a JSON response
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    // Prepare a temporary file to store the multipart request prior to sending it to the server due to an alleged
-    // bug in NSURLSessionTask.
-    NSString* tmpFilename = [NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]];
-    NSURL* tmpFileUrl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:tmpFilename]];
-    
-    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-    ProcessingViewController *pvc = (ProcessingViewController   *)[mainStoryboard
-                                                                   instantiateViewControllerWithIdentifier:@"ProcessingViewController"];
-    UIWindow *windowp= [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    [self showProcessingView:pvc onWindow:windowp];
-    
-    // Create a multipart form request.
-    NSMutableURLRequest *multipartRequest = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:SERVER_PATH parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
-        NSString *fileName=imageName;
-        NSData *imageData = UIImageJPEGRepresentation(image, 1);
-        [formData appendPartWithFileData:imageData name:@"upload" fileName:fileName mimeType:@"image/jpeg"];
-        
-    } error:nil];
-    
-    multipartRequest.timeoutInterval = 1000 * 60.0;
-   
-    
-    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
-         NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
-        [multipartRequest setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
-        [multipartRequest setValue:token forHTTPHeaderField:@"token"];
-        
-    }else if([FBSDKAccessToken currentAccessToken]){
-        NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken]];
-        [multipartRequest setValue:[NSString stringWithFormat:@"facebook"] forHTTPHeaderField:SSO_TYPE];
-        [multipartRequest setValue:token forHTTPHeaderField:@"token"];
-    }
-    
-    
-    // Dump multipart request into the temporary file.
-    [[AFHTTPRequestSerializer serializer]
-     requestWithMultipartFormRequest:multipartRequest
-     writingStreamContentsToFile:tmpFileUrl
-     completionHandler:^(NSError *error) {
-         // Here note that we are submitting the initial multipart request. We are, however,
-         // forcing the body stream to be read from the temporary file.
-         NSURLSessionUploadTask *uploadTask = [[DefaultSessionManager sharedManager] uploadTaskWithRequest:multipartRequest fromFile:tmpFileUrl progress:^(NSProgress * _Nonnull uploadProgress) {
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 pvc.progressView.progress=uploadProgress.fractionCompleted;
-                 pvc.progressPercentage.text= [NSString stringWithFormat:@"%.2f",uploadProgress.fractionCompleted*100];
-             });
-             
-         }
-                completionHandler:^(NSURLResponse *response,
-                                    id responseObject,
-                                    NSError *error){
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                                        windowp.hidden=YES;
-                                                                                                 // Cleanup: remove temporary file.
-                                                                                                 [[NSFileManager defaultManager] removeItemAtURL:tmpFileUrl error:nil];
-                            
-                                                                                                 NSLog(@"%@",error);
-                                                                                                 NSLog(@"%@",response);
-                                                                                                 NSString *mssg;
-                                                                                                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-
-                                                                                                 if (error || (long)[httpResponse statusCode]!=200)
-                                                                                                     mssg = @"Image not uploaded";
-                                                                                                 else{
-                                                                                                     NSString *temp=[NSString stringWithFormat:@"Thrash bin: %@ \nConfidence:%@%%",[responseObject valueForKey:@"trashBin"], [responseObject valueForKey:@"Percent"]];
-                                                                                                     mssg = temp;
-                                                                                                 }
-
-                                                                                                 UIWindow* window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-                                                                                                 window.rootViewController = [UIViewController new];
-                                                                                                 window.windowLevel = UIWindowLevelAlert + 1;
-
-                                                                                                 UIAlertController* alertCtrl = [UIAlertController alertControllerWithTitle:@"Important" message:mssg preferredStyle:UIAlertControllerStyleAlert];
-
-                                                                                                 UIAlertAction *okAction= [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
-
-                                                                                                     window.hidden = YES;
-
-                                                                                                     NSLog(@"Oh Yeah!");
-                                                                                                     completionHandler(response, responseObject,error);
-                                                                                                 }];
-
-
-                                                                                                 [alertCtrl addAction:okAction];
-
-                                                                                                 //http://stackoverflow.com/questions/25260290/makekeywindow-vs-makekeyandvisible
-
-                                                                                                 [window makeKeyAndVisible]; //The makeKeyAndVisible message makes a window key, and moves it to be in front of any other windows on its level
-
-                                                                                                 [alertCtrl.view setNeedsLayout];
-
-                                                                                                 [window.rootViewController presentViewController:alertCtrl animated:YES completion:nil];
-                            
-                                                                                                 
-                                                                                             });
-                                                                                             
-                                                                                         }];
-         
-         
-         // Start the upload.
-         
-         [uploadTask resume];
-         
-         
-         
-     }];
-    
-}
+//-(void) uploadImage:(UIImage *)image withImageName:(NSString *)imageName withCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
+//    NSURL *theURL = [NSURL URLWithString:SERVER_PATH];
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
+//
+//    // setting the HTTP method
+//    [request setHTTPMethod:@"POST"];
+//
+//
+//
+//    // we want a JSON response
+//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+//    // Prepare a temporary file to store the multipart request prior to sending it to the server due to an alleged
+//    // bug in NSURLSessionTask.
+//    NSString* tmpFilename = [NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]];
+//    NSURL* tmpFileUrl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:tmpFilename]];
+//
+//    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+//    ProcessingViewController *pvc = (ProcessingViewController   *)[mainStoryboard
+//                                                                   instantiateViewControllerWithIdentifier:@"ProcessingViewController"];
+//    UIWindow *windowp= [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+//    [self showProcessingView:pvc onWindow:windowp];
+//
+//    // Create a multipart form request.
+//    NSMutableURLRequest *multipartRequest = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:SERVER_PATH parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+//        NSString *fileName=imageName;
+//        NSData *imageData = UIImageJPEGRepresentation(image, 1);
+//        [formData appendPartWithFileData:imageData name:@"upload" fileName:fileName mimeType:@"image/jpeg"];
+//
+//    } error:nil];
+//
+//    multipartRequest.timeoutInterval = 1000 * 60.0;
+//
+//
+//    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
+//         NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
+//        [multipartRequest setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
+//        [multipartRequest setValue:token forHTTPHeaderField:@"token"];
+//
+//    }else if([FBSDKAccessToken currentAccessToken]){
+//        NSString *fbAccessToken = [FBSDKAccessToken currentAccessToken].tokenString;
+//        NSLog(@"%@",fbAccessToken);
+//        NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken].tokenString];
+//
+//        [multipartRequest setValue:[NSString stringWithFormat:@"facebook"] forHTTPHeaderField:SSO_TYPE];
+//        [multipartRequest setValue:token forHTTPHeaderField:@"token"];
+//    }
+//
+//
+//    // Dump multipart request into the temporary file.
+//    [[AFHTTPRequestSerializer serializer]
+//     requestWithMultipartFormRequest:multipartRequest
+//     writingStreamContentsToFile:tmpFileUrl
+//     completionHandler:^(NSError *error) {
+//         // Here note that we are submitting the initial multipart request. We are, however,
+//         // forcing the body stream to be read from the temporary file.
+//         NSURLSessionUploadTask *uploadTask = [[DefaultSessionManager sharedManager] uploadTaskWithRequest:multipartRequest fromFile:tmpFileUrl progress:^(NSProgress * _Nonnull uploadProgress) {
+//             dispatch_async(dispatch_get_main_queue(), ^{
+//                 pvc.progressView.progress=uploadProgress.fractionCompleted;
+//                 pvc.progressPercentage.text= [NSString stringWithFormat:@"%.2f",uploadProgress.fractionCompleted*100];
+//             });
+//
+//         }
+//                completionHandler:^(NSURLResponse *response,
+//                                    id responseObject,
+//                                    NSError *error){
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                                        windowp.hidden=YES;
+//                                                                                                 // Cleanup: remove temporary file.
+//                                                                                                 [[NSFileManager defaultManager] removeItemAtURL:tmpFileUrl error:nil];
+//
+//                                                                                                 NSLog(@"%@",error);
+//                                                                                                 NSLog(@"%@",response);
+//                                                                                                 NSString *mssg;
+//                                                                                                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+//
+//                                                                                                 if (error || (long)[httpResponse statusCode]!=200)
+//                                                                                                     mssg = @"Image not uploaded";
+//                                                                                                 else{
+//                                                                                                     NSString *temp=[NSString stringWithFormat:@"Thrash bin: %@ \nConfidence:%@%%",[responseObject valueForKey:@"trashBin"], [responseObject valueForKey:@"Percent"]];
+//                                                                                                     mssg = temp;
+//                                                                                                 }
+//
+//                                                                                                 UIWindow* window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//                                                                                                 window.rootViewController = [UIViewController new];
+//                                                                                                 window.windowLevel = UIWindowLevelAlert + 1;
+//
+//                                                                                                 UIAlertController* alertCtrl = [UIAlertController alertControllerWithTitle:@"Important" message:mssg preferredStyle:UIAlertControllerStyleAlert];
+//
+//                                                                                                 UIAlertAction *okAction= [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//
+//                                                                                                     window.hidden = YES;
+//
+//                                                                                                     NSLog(@"Oh Yeah!");
+//                                                                                                     completionHandler(response, responseObject,error);
+//                                                                                                 }];
+//
+//
+//                                                                                                 [alertCtrl addAction:okAction];
+//
+//                                                                                                 //http://stackoverflow.com/questions/25260290/makekeywindow-vs-makekeyandvisible
+//
+//                                                                                                 [window makeKeyAndVisible]; //The makeKeyAndVisible message makes a window key, and moves it to be in front of any other windows on its level
+//
+//                                                                                                 [alertCtrl.view setNeedsLayout];
+//
+//                                                                                                 [window.rootViewController presentViewController:alertCtrl animated:YES completion:nil];
+//
+//
+//                                                                                             });
+//
+//                                                                                         }];
+//
+//
+//         // Start the upload.
+//
+//         [uploadTask resume];
+//
+//
+//
+//     }];
+//
+//}
 
 
 
@@ -229,12 +232,14 @@
     
     if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
         NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
+    
         [request setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
         [request setValue:token forHTTPHeaderField:@"token"];
         
     }else if([FBSDKAccessToken currentAccessToken]){
-        NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken]];
-        [request setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
+        NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken].tokenString];
+        NSLog(@"%@",[FBSDKAccessToken currentAccessToken].tokenString);
+        [request setValue:[NSString stringWithFormat:@"facebook"] forHTTPHeaderField:SSO_TYPE];
         [request setValue:token forHTTPHeaderField:@"token"];
     }
     
@@ -246,16 +251,156 @@
     [task resume];
 }
 
--(void)testUploadImage:(UIImage *)image WithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
+//-(void)testUploadImage:(UIImage *)image WithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
+//
+//    NSString *filename = [NSString stringWithFormat:@"Camera-%ld.jpg",(long)[self randomNumberGenerator]];
+//    UIImage *compressImage=[self compressImage:image ];
+//    [self uploadImage:compressImage withImageName:filename withCompletion:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+//        completionHandler(response,responseObject,error);
+//    }];
+//
+//}
+
+-(void)testUploadImage:(UIImage *)image atLocation:(CLLocation *) location WithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
     
     NSString *filename = [NSString stringWithFormat:@"Camera-%ld.jpg",(long)[self randomNumberGenerator]];
     UIImage *compressImage=[self compressImage:image ];
-    [self uploadImage:compressImage withImageName:filename withCompletion:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+    
+    [self uploadImage:compressImage atlocation:location withImageName:filename withCompletion:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         completionHandler(response,responseObject,error);
     }];
+
     
 }
 
+
+
+-(void) uploadImage:(UIImage *)image atlocation:(CLLocation *)location withImageName:(NSString *)imageName withCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
+    NSURL *theURL = [NSURL URLWithString:SERVER_PATH];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
+    
+    // setting the HTTP method
+    [request setHTTPMethod:@"POST"];
+    
+    
+    
+    // we want a JSON response
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    // Prepare a temporary file to store the multipart request prior to sending it to the server due to an alleged
+    
+   
+    // bug in NSURLSessionTask.
+    NSString* tmpFilename = [NSString stringWithFormat:@"%f", [NSDate timeIntervalSinceReferenceDate]];
+    NSURL* tmpFileUrl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:tmpFilename]];
+    
+    UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    ProcessingViewController *pvc = (ProcessingViewController   *)[mainStoryboard
+                                                                   instantiateViewControllerWithIdentifier:@"ProcessingViewController"];
+    UIWindow *windowp= [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    [self showProcessingView:pvc onWindow:windowp];
+    
+    // Create a multipart form request.
+    NSMutableURLRequest *multipartRequest = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:SERVER_PATH parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+        NSString *fileName=imageName;
+        NSData *imageData = UIImageJPEGRepresentation(image, 1);
+        [formData appendPartWithFileData:imageData name:@"upload" fileName:fileName mimeType:@"image/jpeg"];
+        
+    } error:nil];
+    
+    multipartRequest.timeoutInterval = 1000 * 60.0;
+    
+    [multipartRequest setValue:[NSString stringWithFormat:@"%f",location.coordinate.latitude] forHTTPHeaderField:@"latitude"];
+    [multipartRequest setValue:[NSString stringWithFormat:@"%f",location.coordinate.longitude] forHTTPHeaderField:@"longitude"];
+    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
+        NSString *token = [NSString stringWithFormat:@"%@",[[[[GIDSignIn sharedInstance] currentUser] authentication ] accessToken]];
+        [multipartRequest setValue:[NSString stringWithFormat:@"google"] forHTTPHeaderField:SSO_TYPE];
+        [multipartRequest setValue:token forHTTPHeaderField:@"token"];
+        
+    }else if([FBSDKAccessToken currentAccessToken]){
+        NSString *fbAccessToken = [FBSDKAccessToken currentAccessToken].tokenString;
+        NSLog(@"%@",fbAccessToken);
+        NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken].tokenString];
+        
+        [multipartRequest setValue:[NSString stringWithFormat:@"facebook"] forHTTPHeaderField:SSO_TYPE];
+        [multipartRequest setValue:token forHTTPHeaderField:@"token"];
+    }
+    
+    
+    // Dump multipart request into the temporary file.
+    [[AFHTTPRequestSerializer serializer]
+     requestWithMultipartFormRequest:multipartRequest
+     writingStreamContentsToFile:tmpFileUrl
+     completionHandler:^(NSError *error) {
+         // Here note that we are submitting the initial multipart request. We are, however,
+         // forcing the body stream to be read from the temporary file.
+         NSURLSessionUploadTask *uploadTask = [[DefaultSessionManager sharedManager] uploadTaskWithRequest:multipartRequest fromFile:tmpFileUrl progress:^(NSProgress * _Nonnull uploadProgress) {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 pvc.progressView.progress=uploadProgress.fractionCompleted;
+                 pvc.progressPercentage.text= [NSString stringWithFormat:@"%.2f",uploadProgress.fractionCompleted*100];
+             });
+             
+         }
+                                                                                         completionHandler:^(NSURLResponse *response,
+                                                                                                             id responseObject,
+                                                                                                             NSError *error){
+                                                                                             dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                                 windowp.hidden=YES;
+                                                                                                 // Cleanup: remove temporary file.
+                                                                                                 [[NSFileManager defaultManager] removeItemAtURL:tmpFileUrl error:nil];
+                                                                                                 
+                                                                                                 NSLog(@"%@",error);
+                                                                                                 NSLog(@"%@",response);
+                                                                                                 NSString *mssg;
+                                                                                                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                                                                 
+                                                                                                 if (error || (long)[httpResponse statusCode]!=200)
+                                                                                                     mssg = @"Image not uploaded";
+                                                                                                 else{
+                                                                                                     NSString *temp=[NSString stringWithFormat:@"Thrash bin: %@ \nConfidence:%@%%",[responseObject valueForKey:@"trashBin"], [responseObject valueForKey:@"Percent"]];
+                                                                                                     mssg = temp;
+                                                                                                 }
+                                                                                                 
+                                                                                                 UIWindow* window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+                                                                                                 window.rootViewController = [UIViewController new];
+                                                                                                 window.windowLevel = UIWindowLevelAlert + 1;
+                                                                                                 
+                                                                                                 UIAlertController* alertCtrl = [UIAlertController alertControllerWithTitle:@"Important" message:mssg preferredStyle:UIAlertControllerStyleAlert];
+                                                                                                 
+                                                                                                 UIAlertAction *okAction= [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                                                                                                     
+                                                                                                     
+                                                                                                     window.hidden = YES;
+                                                                                                     
+                                                                                                     NSLog(@"Oh Yeah!");
+                                                                                                     completionHandler(response, responseObject,error);
+                                                                                                 }];
+                                                                                                 
+                                                                                                 
+                                                                                                 [alertCtrl addAction:okAction];
+                                                                                                 
+                                                                                                 //http://stackoverflow.com/questions/25260290/makekeywindow-vs-makekeyandvisible
+                                                                                                 
+                                                                                                 [window makeKeyAndVisible]; //The makeKeyAndVisible message makes a window key, and moves it to be in front of any other windows on its level
+                                                                                                 
+                                                                                                 [alertCtrl.view setNeedsLayout];
+                                                                                                 
+                                                                                                 [window.rootViewController presentViewController:alertCtrl animated:YES completion:nil];
+                                                                                                 
+                                                                                                 
+                                                                                             });
+                                                                                             
+                                                                                         }];
+         
+         
+         // Start the upload.
+         
+         [uploadTask resume];
+         
+         
+         
+     }];
+    
+}
 
 
 @end
