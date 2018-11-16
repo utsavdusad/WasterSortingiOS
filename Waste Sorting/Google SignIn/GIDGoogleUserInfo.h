@@ -12,6 +12,5 @@
 @property (nonatomic,strong) GIDGoogleUser *user;
 
 @property (nonatomic,strong) NSString *picture;
-@property (nonatomic,strong) NSString *gender;
-@property (nonatomic,strong) NSString *locale;
+@property (nonatomic,strong) NSString  *name;
 @end
