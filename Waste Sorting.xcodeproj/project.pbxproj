@@ -37,6 +37,7 @@
 		9CCB0307218E09AD007CB639 /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CCB0306218E09AD007CB639 /* CameraViewController.xib */; };
 		9CCB030B218E09D3007CB639 /* ImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CCB0309218E09D2007CB639 /* ImageViewerViewController.m */; };
 		9CCB030C218E09D3007CB639 /* ImageViewerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CCB030A218E09D3007CB639 /* ImageViewerViewController.xib */; };
+		9CD2A8EF219E07F90082B984 /* SDFC Tempe.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9CD2A8EE219E07F90082B984 /* SDFC Tempe.gpx */; };
 		E16896025785B7F8C2F219D6 /* libPods-Waste Sorting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2777066EBD694D1A1568B4FB /* libPods-Waste Sorting.a */; };
 /* End PBXBuildFile section */
 
@@ -91,6 +92,8 @@
 		9CCB0308218E09D2007CB639 /* ImageViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewerViewController.h; sourceTree = "<group>"; };
 		9CCB0309218E09D2007CB639 /* ImageViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewerViewController.m; sourceTree = "<group>"; };
 		9CCB030A218E09D3007CB639 /* ImageViewerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewerViewController.xib; sourceTree = "<group>"; };
+		9CD2A8EE219E07F90082B984 /* SDFC Tempe.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "SDFC Tempe.gpx"; sourceTree = "<group>"; };
+		9CD2A8F0219E09DE0082B984 /* ASU poly Student union.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "ASU poly Student union.gpx"; sourceTree = "<group>"; };
 		9CDE0D3A2186688900FAA0F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -256,6 +259,8 @@
 		9CC742E7215752AB00132866 = {
 			isa = PBXGroup;
 			children = (
+				9CD2A8F0219E09DE0082B984 /* ASU poly Student union.gpx */,
+				9CD2A8EE219E07F90082B984 /* SDFC Tempe.gpx */,
 				9CC742F2215752AB00132866 /* Waste Sorting */,
 				9CC742F1215752AB00132866 /* Products */,
 				CF4D8EE1DD811A6A99229B18 /* Pods */,
@@ -425,6 +430,7 @@
 				9CCB0307218E09AD007CB639 /* CameraViewController.xib in Resources */,
 				9C434C21217E428400E0FD89 /* credentials.plist in Resources */,
 				9C434C29217E449400E0FD89 /* Login.storyboard in Resources */,
+				9CD2A8EF219E07F90082B984 /* SDFC Tempe.gpx in Resources */,
 				9CC742FD215752AD00132866 /* Assets.xcassets in Resources */,
 				9C68299B2192013700D10FED /* UserDetailsViewController.xib in Resources */,
 				9CC742FB215752AB00132866 /* Main.storyboard in Resources */,

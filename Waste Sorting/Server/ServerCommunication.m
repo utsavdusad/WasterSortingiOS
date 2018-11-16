@@ -5,7 +5,7 @@
 #import "ProcessingViewController.h"
 #import "GoogleLoginManager.h"
 #import "BackgroundSessionManager.h"
-
+#import <CoreLocation/CoreLocation.h>
 
 
 //  Created by Rhythm Sharma on 9/30/18.
@@ -78,14 +78,12 @@
     
     formSheetController.presentationController.contentViewSize = CGSizeMake(window.rootViewController.view.frame.size.width*0.40, window.rootViewController.view.frame.size.height*0.15);
     
-    
     formSheetController.presentationController.shouldCenterVertically = YES;
-    
-    
     
     [window makeKeyAndVisible];
     [window.rootViewController presentViewController:formSheetController animated:YES completion:nil];
 }
+
 
 // This method does signIn call
 -(void) signInWithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
@@ -101,7 +99,6 @@
         
     }else if([FBSDKAccessToken currentAccessToken]){
         NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken].tokenString];
-        //NSLog(@"%@",[FBSDKAccessToken currentAccessToken].tokenString);
         [request setValue:[NSString stringWithFormat:@"facebook"] forHTTPHeaderField:SSO_TYPE];
         [request setValue:token forHTTPHeaderField:@"token"];
     }
@@ -206,11 +203,23 @@
                                                                                                  NSString *mssg;
                                                                                                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                                                                                                  
-                                                                                                 if (error || (long)[httpResponse statusCode]!=200)
-                                                                                                     mssg = @"Image not uploaded";
-                                                                                                 else{
-                                                                                                     NSString *temp=[NSString stringWithFormat:@"Thrash bin: %@ \nConfidence:%@%%",[responseObject valueForKey:@"trashBin"], [responseObject valueForKey:@"Percent"]];
-                                                                                                     mssg = temp;
+     if (error || (long)[httpResponse statusCode]!=200){
+         mssg = @"Image not uploaded";
+
+     }else{
+         
+         NSString *temp;
+    
+    
+         bool isValidLocation = [[responseObject valueForKey:@"isValidLocation"] boolValue];
+         if (!isValidLocation){
+             temp = @"Image not under valid location";
+         }else{
+             
+            temp =[NSString stringWithFormat:@"Thrash bin: %@ \nConfidence:%@%%",[responseObject valueForKey:@"trashBin"], [responseObject valueForKey:@"Percent"]];
+         }
+    
+                 mssg = temp;
                                                                                                  }
                                                                                                  
                                                                                                  UIWindow* window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
