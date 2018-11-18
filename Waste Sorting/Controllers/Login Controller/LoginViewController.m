@@ -24,19 +24,10 @@
     [GIDSignIn sharedInstance].uiDelegate = self;
     
     
-    //    [[GIDSignIn sharedInstance] signInSilently];
-    
-    
-    //    [[[[GIDSignIn sharedInstance] currentUser] authentication] accessToken]
+
     
     [[GoogleLoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
-//    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
-//        [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
-//        //        [[GIDSignIn sharedInstance] signInSilently];
-//    }else if ([FBSDKAccessToken currentAccessToken]){
-//        [self showCustomCamera];
-//    }
-    
+
 }
 
 - (void)didReceiveMemoryWarning {

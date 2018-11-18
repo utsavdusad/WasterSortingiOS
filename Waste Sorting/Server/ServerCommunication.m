@@ -69,6 +69,7 @@
     
 }
 
+//Shows a processing view when the image is uploading
 -(void)showProcessingView:(ProcessingViewController *)pvc onWindow:(UIWindow *)window{
     [self setupBackgroundWindow];
     
@@ -111,7 +112,7 @@
     [task resume];
 }
 
-
+//Uploads the image at a lcaotion
 -(void)testUploadImage:(UIImage *)image atLocation:(CLLocation *) location WithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
     
     NSString *filename = [NSString stringWithFormat:@"Camera-%ld.jpg",(long)[self randomNumberGenerator]];

@@ -250,8 +250,8 @@
 		9CBA2F132188CC76000866B8 /* Background Session */ = {
 			isa = PBXGroup;
 			children = (
-				9CBA2F142188CC76000866B8 /* BackgroundSessionManager.m */,
 				9CBA2F152188CC76000866B8 /* BackgroundSessionManager.h */,
+				9CBA2F142188CC76000866B8 /* BackgroundSessionManager.m */,
 			);
 			path = "Background Session";
 			sourceTree = "<group>";
