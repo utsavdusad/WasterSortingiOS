@@ -21,6 +21,7 @@
             //k=constant, greater accuracy requires more time and power. Therefore it can be a battery drain because it has to keep sending and receiving constant updates.
     
             
+            [self.location requestWhenInUseAuthorization];
             
             [self.location requestAlwaysAuthorization];
             

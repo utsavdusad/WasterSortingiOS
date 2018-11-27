@@ -11,7 +11,7 @@
 #import "CameraViewController.h"
 
 
-@interface LoginViewController () <GoogleLoginManagerDelegate, GIDSignInUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface LoginViewController () <LoginManagerDelegate, GIDSignInUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
@@ -26,7 +26,7 @@
     
 
     
-    [[GoogleLoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
+    [[LoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
 
 }
 
@@ -37,11 +37,11 @@
 - (IBAction)signIn:(id)sender {
     //1
 //    [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
-        [[GoogleLoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
+        [[LoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
 }
 - (IBAction)fbLogin:(id)sender {
     
-    [[GoogleLoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
+    [[LoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
 }
 
 

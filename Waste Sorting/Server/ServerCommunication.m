@@ -3,7 +3,7 @@
 #import "DefaultSessionManager.h"
 #import "MZFormSheetPresentationViewController.h"
 #import "ProcessingViewController.h"
-#import "GoogleLoginManager.h"
+#import "LoginManager.h"
 #import "BackgroundSessionManager.h"
 #import <CoreLocation/CoreLocation.h>
 

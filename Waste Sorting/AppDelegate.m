@@ -10,7 +10,7 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import "LoginViewController.h"
 #import "Constants.h"
-#import "GoogleLoginManager.h"
+#import "LoginManager.h"
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 
@@ -94,8 +94,8 @@
             options:(NSDictionary<NSString *, id> *)options {
     
     
-    if ([GoogleLoginManager handleURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]]) {
-        return [GoogleLoginManager handleURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
+    if ([LoginManager handleURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]]) {
+        return [LoginManager handleURL:url sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] annotation:options[UIApplicationOpenURLOptionsAnnotationKey]];
     }else if([[FBSDKApplicationDelegate sharedInstance] application:app
                                                             openURL:url
                                                   sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]

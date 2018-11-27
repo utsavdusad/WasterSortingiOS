@@ -6,21 +6,21 @@
 //  Copyright © 2018 Hygiea. All rights reserved.
 //
 
-#import "GoogleLoginManager.h"
+#import "LoginManager.h"
 
 
 
 
 
 
-@implementation GoogleLoginManager
+@implementation LoginManager
 
 
-static GoogleLoginManager *_sharedLoginManager = nil;
+static LoginManager *_sharedLoginManager = nil;
 
 + (instancetype)sharedLoginManager {
     if (!_sharedLoginManager) {
-        _sharedLoginManager = [[GoogleLoginManager alloc] init];
+        _sharedLoginManager = [[LoginManager alloc] init];
 
     }
     return _sharedLoginManager;
@@ -60,7 +60,7 @@ static GoogleLoginManager *_sharedLoginManager = nil;
 //}
 //
 
-- (void)tryLoginWithDelegateAndSetDelegates:(id<GoogleLoginManagerDelegate>)delegate forButton:(FBSDKLoginButton *)btn{
+- (void)tryLoginWithDelegateAndSetDelegates:(id<LoginManagerDelegate>)delegate forButton:(FBSDKLoginButton *)btn{
     
     
     self.delegate = delegate;
@@ -146,7 +146,7 @@ static GoogleLoginManager *_sharedLoginManager = nil;
                     [defaults setObject:picture forKey:@"picture"];
                     [defaults setObject:name forKey:@"name"];
                     [defaults synchronize];
-                    [[GoogleLoginManager sharedLoginManager] setLoggedUser:infoUser];
+                    [[LoginManager sharedLoginManager] setLoggedUser:infoUser];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (self.delegate && [self.delegate respondsToSelector:@selector(didLogin)]) {
                             [self.delegate didLogin];
@@ -226,7 +226,7 @@ static GoogleLoginManager *_sharedLoginManager = nil;
             [defaults setObject:name forKey:@"name"];
             [defaults synchronize];
             
-             [[GoogleLoginManager sharedLoginManager] setLoggedUser:infoUser];
+             [[LoginManager sharedLoginManager] setLoggedUser:infoUser];
              dispatch_async(dispatch_get_main_queue(), ^{
                  if (self.delegate && [self.delegate respondsToSelector:@selector(didLogin)]) {
                      [self.delegate didLogin];
