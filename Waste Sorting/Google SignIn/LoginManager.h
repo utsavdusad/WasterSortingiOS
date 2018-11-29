@@ -11,7 +11,8 @@
 #import "GIDGoogleUserInfo.h"
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-
+/* This class has login related methods for FB and google. We have implemented common delegate methods
+ for both FB and google. For example: didLogin is called when either of the FB or google login is successfull. Similarly we have implemented didLogout and didFailWithError is called when login is failed due to some reason*/
 @import GoogleSignIn;
 
 @protocol LoginManagerDelegate <NSObject>

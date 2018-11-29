@@ -86,7 +86,7 @@
 }
 
 
-// This method does signIn call
+//This method does signIn call
 -(void) signInWithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
     NSURL *theURL = [NSURL URLWithString:SIGN_IN_PATH];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
@@ -112,7 +112,7 @@
     [task resume];
 }
 
-//Uploads the image at a lcaotion
+//Uploads the image at a lcaotion.
 -(void)testUploadImage:(UIImage *)image atLocation:(CLLocation *) location WithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
     
     NSString *filename = [NSString stringWithFormat:@"Camera-%ld.jpg",(long)[self randomNumberGenerator]];
@@ -214,10 +214,10 @@
     
          bool isValidLocation = [[responseObject valueForKey:@"isValidLocation"] boolValue];
          if (!isValidLocation){
-             temp = @"Image not under valid location";
+             temp = @"Image not under valid licensed area";
          }else{
              
-            temp =[NSString stringWithFormat:@"Thrash bin: %@ \nConfidence:%@%%",[responseObject valueForKey:@"trashBin"], [responseObject valueForKey:@"Percent"]];
+            temp =[NSString stringWithFormat:@"Trash bin: %@ \nConfidence:%@%%",[responseObject valueForKey:@"trashBin"], [responseObject valueForKey:@"Percent"]];
          }
     
                  mssg = temp;

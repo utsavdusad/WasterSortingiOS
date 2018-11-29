@@ -185,7 +185,7 @@
 //    }];
 }
 
-//In simulator camera is not available so we need to handle the error.
+//If simulator camera is not available so we need to handle the error.
 - (void)showNoCameraError
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Your device doesn't have a camera" preferredStyle:UIAlertControllerStyleAlert];

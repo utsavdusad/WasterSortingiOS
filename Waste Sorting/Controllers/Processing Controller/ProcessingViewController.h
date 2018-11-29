@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+/*
+ This class is used to show the upload progress of the image. We also show the upload progress in percentage.
+ */
 
 @interface ProcessingViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;

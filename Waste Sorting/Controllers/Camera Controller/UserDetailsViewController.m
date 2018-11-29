@@ -62,7 +62,7 @@
 }
 */
 - (IBAction)logout:(id)sender {
-    
+    //The user can logout teh app using this function.
     
     if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
             [[LoginManager sharedLoginManager] tryLogout];

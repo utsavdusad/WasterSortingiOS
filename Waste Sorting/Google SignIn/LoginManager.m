@@ -9,10 +9,6 @@
 #import "LoginManager.h"
 
 
-
-
-
-
 @implementation LoginManager
 
 
@@ -35,30 +31,6 @@ static LoginManager *_sharedLoginManager = nil;
 
 
 
-//- (void)tryLoginWith:(id<GoogleLoginManagerDelegate>)delegate {
-//    
-//
-//    self.delegate = delegate;
-//////
-////    NSError* configureError;
-////    [[GGLContext sharedInstance] configureWithError: &configureError];
-////    if (configureError != nil) {
-////        NSLog(@"Error configuring the Google context: %@", configureError);
-////    }
-////
-////    [GIDSignIn sharedInstance].uiDelegate = self;
-//    [GIDSignIn sharedInstance].delegate = self;
-////    [GIDSignIn sharedInstance].scopes = @[@"https://www.googleapis.com/auth/plus.me",@"https://www.googleapis.com/auth/plus.stream.read"];
-////    [[GIDSignIn sharedInstance] signIn];
-//
-////    //    [[UIApplication sharedApplication] keyWindow] setYser
-//    
-//    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
-//  
-//            [[GIDSignIn sharedInstance] signInSilently];
-//    }
-//}
-//
 
 - (void)tryLoginWithDelegateAndSetDelegates:(id<LoginManagerDelegate>)delegate forButton:(FBSDKLoginButton *)btn{
     
@@ -81,8 +53,8 @@ static LoginManager *_sharedLoginManager = nil;
         [[GIDSignIn sharedInstance] signInSilently];
         
     }else if([FBSDKAccessToken currentAccessToken]){
-        NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken].tokenString];
-//        NSLog(@"%@",[FBSDKAccessToken currentAccessToken].);
+//        NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken].tokenString];
+////        NSLog(@"%@",[FBSDKAccessToken currentAccessToken].);
         [self.delegate didLogin];
     }
 }

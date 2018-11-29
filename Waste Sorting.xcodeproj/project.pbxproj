@@ -45,6 +45,7 @@
 		2777066EBD694D1A1568B4FB /* libPods-Waste Sorting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Waste Sorting.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FA99F4C51D124428BB7D9C7 /* Pods-Waste Sorting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waste Sorting.release.xcconfig"; path = "Pods/Target Support Files/Pods-Waste Sorting/Pods-Waste Sorting.release.xcconfig"; sourceTree = "<group>"; };
 		9C245FF621A7532A0020D916 /* Noble Library.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Noble Library.gpx"; sourceTree = "<group>"; };
+		9C2A0E5721B08C17009A3AEC /* Cupertino.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Cupertino.gpx; sourceTree = "<group>"; };
 		9C434C1D217ABA9300E0FD89 /* ProcessingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessingViewController.h; sourceTree = "<group>"; };
 		9C434C1E217ABA9300E0FD89 /* ProcessingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessingViewController.m; sourceTree = "<group>"; };
 		9C434C20217E428300E0FD89 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
@@ -261,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				9C245FF621A7532A0020D916 /* Noble Library.gpx */,
+				9C2A0E5721B08C17009A3AEC /* Cupertino.gpx */,
 				9CD2A8F0219E09DE0082B984 /* ASU poly Student union.gpx */,
 				9CD2A8EE219E07F90082B984 /* ASU Gammage.gpx */,
 				9CC742F2215752AB00132866 /* Waste Sorting */,
