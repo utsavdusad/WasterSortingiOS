@@ -14,7 +14,7 @@
 		9C434C27217E430C00E0FD89 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C434C26217E430B00E0FD89 /* SystemConfiguration.framework */; };
 		9C434C29217E449400E0FD89 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C434C28217E449400E0FD89 /* Login.storyboard */; };
 		9C434C2C217E452E00E0FD89 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C2B217E452E00E0FD89 /* LoginViewController.m */; };
-		9C434C2F217E459D00E0FD89 /* GoogleLoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C2E217E459D00E0FD89 /* GoogleLoginManager.m */; };
+		9C434C2F217E459D00E0FD89 /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C2E217E459D00E0FD89 /* LoginManager.m */; };
 		9C434C32217E47D600E0FD89 /* GIDGoogleUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C434C31217E47D600E0FD89 /* GIDGoogleUserInfo.m */; };
 		9C64AA6E21975C33009BE7BF /* TrackUserLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C64AA6D21975C32009BE7BF /* TrackUserLocation.m */; };
 		9C64AA7021975F3C009BE7BF /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C64AA6F21975F3C009BE7BF /* CoreLocation.framework */; };
@@ -37,12 +37,15 @@
 		9CCB0307218E09AD007CB639 /* CameraViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CCB0306218E09AD007CB639 /* CameraViewController.xib */; };
 		9CCB030B218E09D3007CB639 /* ImageViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CCB0309218E09D2007CB639 /* ImageViewerViewController.m */; };
 		9CCB030C218E09D3007CB639 /* ImageViewerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CCB030A218E09D3007CB639 /* ImageViewerViewController.xib */; };
+		9CD2A8EF219E07F90082B984 /* ASU Gammage.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 9CD2A8EE219E07F90082B984 /* ASU Gammage.gpx */; };
 		E16896025785B7F8C2F219D6 /* libPods-Waste Sorting.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2777066EBD694D1A1568B4FB /* libPods-Waste Sorting.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2777066EBD694D1A1568B4FB /* libPods-Waste Sorting.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Waste Sorting.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FA99F4C51D124428BB7D9C7 /* Pods-Waste Sorting.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Waste Sorting.release.xcconfig"; path = "Pods/Target Support Files/Pods-Waste Sorting/Pods-Waste Sorting.release.xcconfig"; sourceTree = "<group>"; };
+		9C245FF621A7532A0020D916 /* Noble Library.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Noble Library.gpx"; sourceTree = "<group>"; };
+		9C2A0E5721B08C17009A3AEC /* Cupertino.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Cupertino.gpx; sourceTree = "<group>"; };
 		9C434C1D217ABA9300E0FD89 /* ProcessingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProcessingViewController.h; sourceTree = "<group>"; };
 		9C434C1E217ABA9300E0FD89 /* ProcessingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProcessingViewController.m; sourceTree = "<group>"; };
 		9C434C20217E428300E0FD89 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
@@ -52,8 +55,8 @@
 		9C434C28217E449400E0FD89 /* Login.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		9C434C2A217E452E00E0FD89 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		9C434C2B217E452E00E0FD89 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		9C434C2D217E459D00E0FD89 /* GoogleLoginManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleLoginManager.h; sourceTree = "<group>"; };
-		9C434C2E217E459D00E0FD89 /* GoogleLoginManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleLoginManager.m; sourceTree = "<group>"; };
+		9C434C2D217E459D00E0FD89 /* LoginManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
+		9C434C2E217E459D00E0FD89 /* LoginManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
 		9C434C30217E47D600E0FD89 /* GIDGoogleUserInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GIDGoogleUserInfo.h; sourceTree = "<group>"; };
 		9C434C31217E47D600E0FD89 /* GIDGoogleUserInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GIDGoogleUserInfo.m; sourceTree = "<group>"; };
 		9C64AA6C21975C32009BE7BF /* TrackUserLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackUserLocation.h; sourceTree = "<group>"; };
@@ -91,6 +94,8 @@
 		9CCB0308218E09D2007CB639 /* ImageViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewerViewController.h; sourceTree = "<group>"; };
 		9CCB0309218E09D2007CB639 /* ImageViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewerViewController.m; sourceTree = "<group>"; };
 		9CCB030A218E09D3007CB639 /* ImageViewerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewerViewController.xib; sourceTree = "<group>"; };
+		9CD2A8EE219E07F90082B984 /* ASU Gammage.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "ASU Gammage.gpx"; sourceTree = "<group>"; };
+		9CD2A8F0219E09DE0082B984 /* ASU poly Student union.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "ASU poly Student union.gpx"; sourceTree = "<group>"; };
 		9CDE0D3A2186688900FAA0F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,8 +130,8 @@
 		9C434C33217E485C00E0FD89 /* Google SignIn */ = {
 			isa = PBXGroup;
 			children = (
-				9C434C2D217E459D00E0FD89 /* GoogleLoginManager.h */,
-				9C434C2E217E459D00E0FD89 /* GoogleLoginManager.m */,
+				9C434C2D217E459D00E0FD89 /* LoginManager.h */,
+				9C434C2E217E459D00E0FD89 /* LoginManager.m */,
 				9C434C30217E47D600E0FD89 /* GIDGoogleUserInfo.h */,
 				9C434C31217E47D600E0FD89 /* GIDGoogleUserInfo.m */,
 			);
@@ -247,8 +252,8 @@
 		9CBA2F132188CC76000866B8 /* Background Session */ = {
 			isa = PBXGroup;
 			children = (
-				9CBA2F142188CC76000866B8 /* BackgroundSessionManager.m */,
 				9CBA2F152188CC76000866B8 /* BackgroundSessionManager.h */,
+				9CBA2F142188CC76000866B8 /* BackgroundSessionManager.m */,
 			);
 			path = "Background Session";
 			sourceTree = "<group>";
@@ -256,6 +261,10 @@
 		9CC742E7215752AB00132866 = {
 			isa = PBXGroup;
 			children = (
+				9C245FF621A7532A0020D916 /* Noble Library.gpx */,
+				9C2A0E5721B08C17009A3AEC /* Cupertino.gpx */,
+				9CD2A8F0219E09DE0082B984 /* ASU poly Student union.gpx */,
+				9CD2A8EE219E07F90082B984 /* ASU Gammage.gpx */,
 				9CC742F2215752AB00132866 /* Waste Sorting */,
 				9CC742F1215752AB00132866 /* Products */,
 				CF4D8EE1DD811A6A99229B18 /* Pods */,
@@ -425,6 +434,7 @@
 				9CCB0307218E09AD007CB639 /* CameraViewController.xib in Resources */,
 				9C434C21217E428400E0FD89 /* credentials.plist in Resources */,
 				9C434C29217E449400E0FD89 /* Login.storyboard in Resources */,
+				9CD2A8EF219E07F90082B984 /* ASU Gammage.gpx in Resources */,
 				9CC742FD215752AD00132866 /* Assets.xcassets in Resources */,
 				9C68299B2192013700D10FED /* UserDetailsViewController.xib in Resources */,
 				9CC742FB215752AB00132866 /* Main.storyboard in Resources */,
@@ -497,7 +507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9C434C2F217E459D00E0FD89 /* GoogleLoginManager.m in Sources */,
+				9C434C2F217E459D00E0FD89 /* LoginManager.m in Sources */,
 				9CCB02DD218E08EF007CB639 /* UIImage+DrawBlock.m in Sources */,
 				9CC74303215752AD00132866 /* main.m in Sources */,
 				9CBA2F172188CC76000866B8 /* BackgroundSessionManager.m in Sources */,

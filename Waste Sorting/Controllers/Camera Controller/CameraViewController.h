@@ -8,6 +8,9 @@
 //
 
 #import <UIKit/UIKit.h>
+/*
+ After login the cameraViewController loads. The user can see his information, select image from gallary or capture an image.
+ */
 
 @interface CameraViewController : UIViewController
 

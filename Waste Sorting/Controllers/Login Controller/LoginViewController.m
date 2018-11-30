@@ -11,7 +11,7 @@
 #import "CameraViewController.h"
 
 
-@interface LoginViewController () <GoogleLoginManagerDelegate, GIDSignInUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface LoginViewController () <LoginManagerDelegate, GIDSignInUIDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
 
@@ -24,19 +24,10 @@
     [GIDSignIn sharedInstance].uiDelegate = self;
     
     
-    //    [[GIDSignIn sharedInstance] signInSilently];
+
     
-    
-    //    [[[[GIDSignIn sharedInstance] currentUser] authentication] accessToken]
-    
-    [[GoogleLoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
-//    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
-//        [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
-//        //        [[GIDSignIn sharedInstance] signInSilently];
-//    }else if ([FBSDKAccessToken currentAccessToken]){
-//        [self showCustomCamera];
-//    }
-    
+    [[LoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,24 +37,16 @@
 - (IBAction)signIn:(id)sender {
     //1
 //    [[GoogleLoginManager sharedLoginManager] tryLoginWith:self];
-        [[GoogleLoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
+        [[LoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
 }
 - (IBAction)fbLogin:(id)sender {
     
-    [[GoogleLoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
+    [[LoginManager sharedLoginManager] tryLoginWithDelegateAndSetDelegates:self forButton:self.fbLoginButton];
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 
+//Called when the login for FB/Google is done by their respective server then we get a callback in the callback function we call didLogin()
 - (void)didLogin{
     
     
@@ -104,58 +87,12 @@
         }
         
     }];
-//
-//    if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
-//
-//
-//        GIDGoogleUserInfo *user = [[GoogleLoginManager sharedLoginManager] loggedUser];
-//        NSString *fullName = user.user.profile.name;
-//        NSString *givenName = user.user.profile.givenName;
-//        NSString *familyName = user.user.profile.familyName;
-//        NSString *email = @"utsavdusad@gmail.com";//user.profile.email;
-//
-//        NSString *idToken=user.user.authentication.idToken;
-//        if(idToken)
-//
-//
-//        NSLog(@"error");
-//
-//
-//    }else if ([FBSDKAccessToken currentAccessToken]){
-//
-//           [self showCustomCamera];
-//
-//    }
-//
-    
-    
+
 }
 - (void)didLogout{
     NSLog(@"error");
-    //    UIAlertController * alert = [UIAlertController
-    //                                 alertControllerWithTitle:@"Important"
-    //                                 message:@"Login Not successful"
-    //                                 preferredStyle:UIAlertControllerStyleAlert];
-    //
-    //    //Add Buttons
-    //
-    //    UIAlertAction* okButton = [UIAlertAction
-    //                                actionWithTitle:@"ok"
-    //                                style:UIAlertActionStyleDefault
-    //                                handler:^(UIAlertAction * action) {
-    //                                    //Handle your yes please button action here
-    //
-    //                                }];
-    //
-    //
-    //    //Add your buttons to alert controller
-    //
-    //    [alert addAction:okButton];
-    //
-    //
-    //    [self presentViewController:alert animated:YES completion:nil];
-    
 }
+//Called when the logout is done by google/FB respective server. This is called by the callback method in GoogleLoginManager
 - (void)didDisconnect{
     
 //    [self.navigationController popToViewController:self animated:YES];
@@ -171,7 +108,7 @@
     
 }
 
-
+//This method sends google/FB token to our custom server where the server authenticates the user. Upon successfull authentication the user is allowed to login the application.
 -(void)authenticateUserWithCompletionHandler:(void (^)(bool isLoginSuccessfull, NSString *error))completionHandler{
     
     [[ServerCommunication   alloc] signInWithCompletion:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
@@ -195,12 +132,9 @@
 
 
 
-
+//Used to show custom camera view
 - (void)showCamera {
-    
-    
-    
-    
+
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     //    picker.showsCameraControls = NO;
@@ -217,7 +151,7 @@
     
 }
 
-
+//Allow user to select image frome the Photos app.
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self dismissViewControllerAnimated:YES completion:NULL];
     //   UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
@@ -233,7 +167,7 @@
 }
 
 
-
+//Used to show custom camera.
 - (void)showCustomCamera
 {
     if (![UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -251,7 +185,7 @@
 //    }];
 }
 
-
+//If simulator camera is not available so we need to handle the error.
 - (void)showNoCameraError
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Your device doesn't have a camera" preferredStyle:UIAlertControllerStyleAlert];

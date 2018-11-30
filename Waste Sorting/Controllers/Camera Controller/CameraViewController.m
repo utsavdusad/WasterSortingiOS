@@ -261,7 +261,8 @@ static char imageKey;
 {
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         self.session = [[AVCaptureSession alloc] init];
-        self.session.sessionPreset = AVCaptureSessionPresetPhoto;
+        self.session.sessionPreset = AVCaptureSessionPresetHigh;
+     
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         NSError *error = nil;
         

@@ -8,6 +8,10 @@
 
 #import <GoogleSignIn/GoogleSignIn.h>
 
+/*
+ This class is used to store the logged in user info.
+ */
+
 @interface GIDGoogleUserInfo : GIDGoogleUser
 @property (nonatomic,strong) GIDGoogleUser *user;
 

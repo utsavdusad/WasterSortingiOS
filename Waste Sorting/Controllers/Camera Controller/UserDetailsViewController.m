@@ -7,7 +7,7 @@
 //
 
 #import "UserDetailsViewController.h"
-#import "GoogleLoginManager.h"
+#import "LoginManager.h"
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 
@@ -62,14 +62,14 @@
 }
 */
 - (IBAction)logout:(id)sender {
-    
+    //The user can logout teh app using this function.
     
     if ([[GIDSignIn sharedInstance] hasAuthInKeychain] ){
-            [[GoogleLoginManager sharedLoginManager] tryLogout];
+            [[LoginManager sharedLoginManager] tryLogout];
         
     }else if ([FBSDKAccessToken currentAccessToken]){
         
-        [[GoogleLoginManager sharedLoginManager] fbLogout];
+        [[LoginManager sharedLoginManager] fbLogout];
     }
 }
 

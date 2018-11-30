@@ -3,9 +3,9 @@
 #import "DefaultSessionManager.h"
 #import "MZFormSheetPresentationViewController.h"
 #import "ProcessingViewController.h"
-#import "GoogleLoginManager.h"
+#import "LoginManager.h"
 #import "BackgroundSessionManager.h"
-
+#import <CoreLocation/CoreLocation.h>
 
 
 //  Created by Rhythm Sharma on 9/30/18.
@@ -69,6 +69,7 @@
     
 }
 
+//Shows a processing view when the image is uploading
 -(void)showProcessingView:(ProcessingViewController *)pvc onWindow:(UIWindow *)window{
     [self setupBackgroundWindow];
     
@@ -78,16 +79,14 @@
     
     formSheetController.presentationController.contentViewSize = CGSizeMake(window.rootViewController.view.frame.size.width*0.40, window.rootViewController.view.frame.size.height*0.15);
     
-    
     formSheetController.presentationController.shouldCenterVertically = YES;
-    
-    
     
     [window makeKeyAndVisible];
     [window.rootViewController presentViewController:formSheetController animated:YES completion:nil];
 }
 
-// This method does signIn call
+
+//This method does signIn call
 -(void) signInWithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
     NSURL *theURL = [NSURL URLWithString:SIGN_IN_PATH];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:theURL];
@@ -101,7 +100,6 @@
         
     }else if([FBSDKAccessToken currentAccessToken]){
         NSString *token = [NSString stringWithFormat:@"%@",[FBSDKAccessToken currentAccessToken].tokenString];
-        //NSLog(@"%@",[FBSDKAccessToken currentAccessToken].tokenString);
         [request setValue:[NSString stringWithFormat:@"facebook"] forHTTPHeaderField:SSO_TYPE];
         [request setValue:token forHTTPHeaderField:@"token"];
     }
@@ -114,7 +112,7 @@
     [task resume];
 }
 
-
+//Uploads the image at a lcaotion.
 -(void)testUploadImage:(UIImage *)image atLocation:(CLLocation *) location WithCompletion:(void(^)(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error))completionHandler{
     
     NSString *filename = [NSString stringWithFormat:@"Camera-%ld.jpg",(long)[self randomNumberGenerator]];
@@ -206,11 +204,23 @@
                                                                                                  NSString *mssg;
                                                                                                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
                                                                                                  
-                                                                                                 if (error || (long)[httpResponse statusCode]!=200)
-                                                                                                     mssg = @"Image not uploaded";
-                                                                                                 else{
-                                                                                                     NSString *temp=[NSString stringWithFormat:@"Thrash bin: %@ \nConfidence:%@%%",[responseObject valueForKey:@"trashBin"], [responseObject valueForKey:@"Percent"]];
-                                                                                                     mssg = temp;
+     if (error || (long)[httpResponse statusCode]!=200){
+         mssg = @"Image not uploaded";
+
+     }else{
+         
+         NSString *temp;
+    
+    
+         bool isValidLocation = [[responseObject valueForKey:@"isValidLocation"] boolValue];
+         if (!isValidLocation){
+             temp = @"Image not under valid licensed area";
+         }else{
+             
+            temp =[NSString stringWithFormat:@"Trash bin: %@ \nConfidence:%@%%",[responseObject valueForKey:@"trashBin"], [responseObject valueForKey:@"Percent"]];
+         }
+    
+                 mssg = temp;
                                                                                                  }
                                                                                                  
                                                                                                  UIWindow* window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];

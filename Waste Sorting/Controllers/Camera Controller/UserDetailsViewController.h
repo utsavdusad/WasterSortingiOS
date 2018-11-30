@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+/*
+ This class is used to show user information like image and name. The user can also, do logout using this view controller.
+ */
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UserDetailsViewController : UIViewController

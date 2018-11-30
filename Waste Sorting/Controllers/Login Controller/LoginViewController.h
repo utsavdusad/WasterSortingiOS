@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GoogleLoginManager.h"
+#import "LoginManager.h"
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+/*
+ This class is called first when the app open. If the credentials are already present then it do silent signIn and if credentials are not present then the user has to do either google signIn or FBSignIn.
+ */
 
 @interface LoginViewController : UIViewController
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbLoginButton;

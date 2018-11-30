@@ -17,11 +17,6 @@
                 <outlet property="cameraContainerView" destination="PPI-1U-rNc" id="JOG-KR-uy6"/>
                 <outlet property="cameraViewBottomConstraint" destination="98F-sk-gP3" id="KHH-SJ-aeK"/>
                 <outlet property="cameraViewTopConstraint" destination="dSD-9h-hou" id="02m-Fr-eFP"/>
-                <outlet property="flashAutoButton" destination="Eri-Td-efw" id="iwG-Fl-TBm"/>
-                <outlet property="flashButton" destination="mV9-5f-sc1" id="vOW-Lp-IFR"/>
-                <outlet property="flashModeContainerView" destination="Dco-T4-pe8" id="B0o-zb-5wl"/>
-                <outlet property="flashOffButton" destination="Yjt-FX-v90" id="lbY-So-Vxo"/>
-                <outlet property="flashOnButton" destination="zBp-xp-PXT" id="Tqu-hI-hYE"/>
                 <outlet property="openPhotoAlbumButton" destination="TqL-K4-dR2" id="i3k-tY-sxI"/>
                 <outlet property="takePhotoButton" destination="VGJ-Mc-QDp" id="IdV-9r-ukH"/>
                 <outlet property="topBarView" destination="EGp-Aa-PGk" id="hZR-8B-kL5"/>
@@ -40,82 +35,6 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EGp-Aa-PGk">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dco-T4-pe8">
-                            <rect key="frame" x="118" y="0.0" width="139" height="44"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eri-Td-efw">
-                                    <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="44" id="O71-xw-a84"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <state key="normal" title="Auto">
-                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <state key="selected">
-                                        <color key="titleColor" red="0.95686274510000002" green="0.60784313729999995" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="flashModeButtonWasTouched:" destination="-1" eventType="touchUpInside" id="Bil-07-hKg"/>
-                                    </connections>
-                                </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zBp-xp-PXT">
-                                    <rect key="frame" x="74" y="0.0" width="44" height="44"/>
-                                    <constraints>
-                                        <constraint firstAttribute="width" constant="44" id="Cb3-dA-qgU"/>
-                                    </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <state key="normal" title="On">
-                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <state key="selected">
-                                        <color key="titleColor" red="0.95686274510000002" green="0.60784313729999995" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </state>
-                                    <connections>
-                                        <action selector="flashModeButtonWasTouched:" destination="-1" eventType="touchUpInside" id="srW-MI-U3m"/>
-                                    </connections>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstItem="Eri-Td-efw" firstAttribute="leading" secondItem="Dco-T4-pe8" secondAttribute="leading" id="JMa-fg-oB4"/>
-                                <constraint firstItem="zBp-xp-PXT" firstAttribute="leading" secondItem="Eri-Td-efw" secondAttribute="trailing" constant="30" id="is4-Nj-ebA"/>
-                                <constraint firstAttribute="bottom" secondItem="zBp-xp-PXT" secondAttribute="bottom" id="ruD-We-6UW"/>
-                                <constraint firstAttribute="bottom" secondItem="Eri-Td-efw" secondAttribute="bottom" id="usu-uf-Vg5"/>
-                                <constraint firstItem="zBp-xp-PXT" firstAttribute="top" secondItem="Dco-T4-pe8" secondAttribute="top" id="wII-7b-dwh"/>
-                                <constraint firstItem="Eri-Td-efw" firstAttribute="top" secondItem="Dco-T4-pe8" secondAttribute="top" id="ye4-p1-uqO"/>
-                            </constraints>
-                        </view>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yjt-FX-v90">
-                            <rect key="frame" x="265" y="0.0" width="44" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="44" id="Kt2-sc-qgE"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                            <state key="normal" title="Off">
-                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <state key="selected">
-                                <color key="titleColor" red="0.95686274510000002" green="0.60784313729999995" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="flashModeButtonWasTouched:" destination="-1" eventType="touchUpInside" id="wfF-2c-kUA"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mV9-5f-sc1">
-                            <rect key="frame" x="50" y="0.0" width="44" height="44"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="44" id="mQl-R2-a2P"/>
-                                <constraint firstAttribute="height" constant="44" id="w9a-Dc-gkQ"/>
-                            </constraints>
-                            <state key="normal" image="ic_flash_on_white"/>
-                            <connections>
-                                <action selector="flashButtonWasTouched:" destination="-1" eventType="touchUpInside" id="9Xt-D0-lFL"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PHh-R6-vwe">
                             <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
                             <state key="normal" image="img_user" backgroundImage="i"/>
@@ -126,19 +45,10 @@
                     </subviews>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="Yjt-FX-v90" firstAttribute="leading" secondItem="zBp-xp-PXT" secondAttribute="trailing" constant="30" id="51z-FR-Egz"/>
-                        <constraint firstAttribute="bottom" secondItem="Dco-T4-pe8" secondAttribute="bottom" id="5tv-IJ-wVe"/>
-                        <constraint firstAttribute="bottom" secondItem="Yjt-FX-v90" secondAttribute="bottom" id="7z0-2D-ndC"/>
                         <constraint firstAttribute="height" constant="44" id="9W6-Vm-D55"/>
-                        <constraint firstItem="Dco-T4-pe8" firstAttribute="centerX" secondItem="EGp-Aa-PGk" secondAttribute="centerX" id="9qh-Es-2rF"/>
-                        <constraint firstAttribute="trailing" secondItem="Yjt-FX-v90" secondAttribute="trailing" constant="65" id="AP4-4w-bRY"/>
-                        <constraint firstItem="Yjt-FX-v90" firstAttribute="top" secondItem="EGp-Aa-PGk" secondAttribute="top" id="DvG-QZ-K7t"/>
                         <constraint firstItem="PHh-R6-vwe" firstAttribute="top" secondItem="EGp-Aa-PGk" secondAttribute="top" id="YAl-zu-Q9M"/>
-                        <constraint firstItem="Dco-T4-pe8" firstAttribute="top" secondItem="EGp-Aa-PGk" secondAttribute="top" id="YPp-0v-605"/>
-                        <constraint firstItem="mV9-5f-sc1" firstAttribute="leading" secondItem="PHh-R6-vwe" secondAttribute="trailing" constant="8" id="fmS-g6-x02"/>
                         <constraint firstItem="PHh-R6-vwe" firstAttribute="leading" secondItem="EGp-Aa-PGk" secondAttribute="leading" id="lVB-68-F6N"/>
                         <constraint firstAttribute="bottom" secondItem="PHh-R6-vwe" secondAttribute="bottom" id="v2r-cG-6du"/>
-                        <constraint firstItem="mV9-5f-sc1" firstAttribute="centerY" secondItem="EGp-Aa-PGk" secondAttribute="centerY" id="xCg-lT-512"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZp-h5-AmJ">
@@ -208,7 +118,6 @@
     <resources>
         <image name="i" width="16" height="16"/>
         <image name="ic_camera_alt_white" width="48" height="48"/>
-        <image name="ic_flash_on_white" width="48" height="48"/>
         <image name="ic_photo_library_white_48pt" width="96" height="96"/>
         <image name="img_user" width="33" height="33"/>
     </resources>
